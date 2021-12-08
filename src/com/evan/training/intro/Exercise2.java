@@ -15,7 +15,7 @@ public class Exercise2 {
 			System.out.print(i);
 		}
 		
-		// print even numbers 1-20 w/ for loop
+		// print even numbers 1-20 with for loop
 		for(i=1;i<=20;i=i+2) {
 			System.out.print(i);
 		}
