@@ -4,20 +4,27 @@ public class Exercise2 {
 	public static void main(String[] args) {
 		
 		// print numbers 1-10 with while loop
-		int i = 0; // declare int variable called i, initialize with value of 0
+		System.out.println(); // print blank line
+		System.out.println("Numbers 1-10 w/ while loop");
+		int i = 1; // declare int variable called i, initialize with value of 0
 		while (i <= 10) {
 			System.out.println(i);
 			i++;
 		}
 		
 		// print numbers 10-1 with for loop
-		for(i=10;i>0;i--) {
-			System.out.print(i);
+		System.out.println(); // print blank line
+		System.out.println("Numbers 10-1 w/ for loop");
+		for(int j=10;j>0;j--) {
+			System.out.println(j);
 		}
 		
+		
 		// print even numbers 1-20 with for loop
-		for(i=1;i<=20;i=i+2) {
-			System.out.print(i);
+		System.out.println(); // print blank line
+		System.out.println("Even numbers 1-20 w/ for loop");
+		for(int k=2;k<=20;k=k+2) {
+			System.out.println(k);
 		}
 		
 		
