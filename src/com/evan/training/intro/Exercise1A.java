@@ -1,6 +1,6 @@
 package com.evan.training.intro;
 
-public class Exercise1 {
+public class Exercise1A {
 	public static void main(String[] args) {
 		
 		// declare and initialize variables of each type (int, double, float, char, boolean)

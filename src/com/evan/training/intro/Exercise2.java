@@ -1,32 +1,50 @@
+/**
+ * 
+ */
 package com.evan.training.intro;
 
+/**
+* <b>Title</b>: Exercise2.java
+* <b>Project</b>: SMTJavaTraining
+* <b>Package</b>: com.evan.training.intro
+* <b>Description: </b> FILL IN DESCRIPTION HERE
+* 
+* @author egeneroli
+* @since Dec 13, 2021
+*/
+
 public class Exercise2 {
+
 	public static void main(String[] args) {
 		
-		// print numbers 1-10 with while loop
-		System.out.println(); // print blank line
-		System.out.println("Numbers 1-10 w/ while loop");
-		int i = 1; // declare int variable called i, initialize with value of 0
-		while (i <= 10) {
-			System.out.println(i);
-			i++;
-		}
-		
-		// print numbers 10-1 with for loop
-		System.out.println(); // print blank line
-		System.out.println("Numbers 10-1 w/ for loop");
-		for(int j=10;j>0;j--) {
-			System.out.println(j);
-		}
-		
-		
-		// print even numbers 1-20 with for loop
-		System.out.println(); // print blank line
-		System.out.println("Even numbers 1-20 w/ for loop");
-		for(int k=2;k<=20;k=k+2) {
-			System.out.println(k);
-		}
-		
+		Exercise2 ex = new Exercise2();
+		ex.process(15, 0, 10);	
 		
 	}
+	
+	/**
+	 * Creates, initializes int array, fills with random numbers and prints
+	 * @param arrayLength 
+	 */
+	public void process(int arrayLength, int minInt, int maxInt) {
+		int[] myArray = new int[arrayLength];
+		
+		System.out.println("Row: Value");
+		for(int i=0; i < myArray.length; i++) {
+			myArray[i] = genRandInt(minInt, maxInt);
+			System.out.println(i + ":   " + myArray[i]);
+		}
+	}
+	
+	/**
+	 * Generates random integer in specified range (min, max)
+	 * @param min Minimum number of random integer generator range
+	 * @param max Maximum number of random integer generator range
+	 * @return Returns integer
+	 */
+	public int genRandInt(int min, int max) {
+		int randVal = min + (int) (Math.random() * ((max - min) + 1));
+		return randVal;
+	}
+	
 }
