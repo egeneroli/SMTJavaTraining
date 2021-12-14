@@ -7,10 +7,12 @@ package com.evan.training.intro;
 * <b>Title</b>: Exercise2.java
 * <b>Project</b>: SMTJavaTraining
 * <b>Package</b>: com.evan.training.intro
-* <b>Description: </b> FILL IN DESCRIPTION HERE
+* <b>Description: </b> Creates 10 element array of random numbers and displays it
 * 
 * @author egeneroli
+* @version 1.0
 * @since Dec 13, 2021
+* @updates:
 */
 
 public class Exercise2 {

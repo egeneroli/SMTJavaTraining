@@ -16,10 +16,13 @@ package com.evan.training.intro;
 /**
 * <b>Title</b>: Exercise1BRefactored.java
 * <b>Project</b>: SMTJavaTraining
-* <b>Description: </b> FILL IN DESCRIPTION HERE
+* <b>Package</b>: com.evan.training.intro
+* <b>Description: </b> Displays 3 different sequences with loops
 * 
 * @author egeneroli
+* @version 2.0
 * @since Dec 13, 2021
+* @updates: moves everything out of main method (compared to og Exercise1B)
 */
 public class Exercise1BRefactored {
 	
