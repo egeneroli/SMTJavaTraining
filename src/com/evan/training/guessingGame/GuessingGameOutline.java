@@ -4,17 +4,17 @@
 package com.evan.training.guessingGame;
 
 /****************************************************************************
-* <b>Title</b>: GuessingGame.java
+* <b>Title</b>: GuessingGameOutline.java
 * <b>Project</b>: SMTJavaTraining
 * <b>Package</b>: com.evan.training.guessingGame
-* <b>Description: </b> Runs guessing game
+* <b>Description: </b> FILL IN DESCRIPTION HERE
 * 
 * @author egeneroli
 * @version 1.0
-* @since Dec 15, 2021
+* @since Dec 16, 2021
 * @updates:
 ****************************************************************************/
-public class GuessingGame {
+public class GuessingGameOutline {
 	
 	/**
 	 * Main method -- initializes program, instantiates GuessGame class, calls play (workflow method) 
@@ -31,49 +31,29 @@ public class GuessingGame {
 	public void play() {
 	//1-intial game set-up
 		//a-prompt user for language choice, take input, store in lang
-		String lang;
-		
+
 		//b-prompt user for min/max int values for random number, take input, store in minInt/maxInt
-		int minInt;
-		int maxInt;
 		
 		//c-prompt user for name, take input, store in userName
-		int userName;
 		
 		//d-generate random number, store in secretNumber
-		int secretNumber = genRandInt(minInt, maxInt);
 		
 		//e-create numOfGuesses variable, initialize to 0
-		int numOfGuesses = 0;
 		
 		//f-create record variable, initialize (to ?)
-		int recordNumOfGuesses;
 		
 	//2-game play
 		//repeat until guess is correct
-		while (true) {
+
 			//a-prompt user for guess, take input, store in userGuess
-			String stringGuess;
-			int userGuess = Integer.parseInt(stringGuess);
-			
+
 			// increment numOfGuesses
-			numOfGuesses++;
-		
+
 			//b-check userGuess against secretNumber
-			if (userGuess != secretNumber) {
 				//if incorrect: display "guess too high/low", prompt user for another guess
-				if (userGuess > secretNumber) {
-					System.out.println("Guess is too high. Guess again.");
-				} else {
-					System.out.println("Guess is too low. Guess again.");
-				}
-				
-			} else {
+
 				//if correct: proceed to end of game
-				System.out.println("Correct, the number was " + secretNumber + ".");
-				break;
-			}
-		}
+
 	//3-end of game
 		//a-display numOfGuesses
 		
@@ -96,6 +76,4 @@ public class GuessingGame {
 		int randVal = min + (int) (Math.random() * ((max - min) + 1));
 		return randVal;
 	}
-	
-	
 }
