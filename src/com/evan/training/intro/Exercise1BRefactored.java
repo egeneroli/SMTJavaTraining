@@ -10,20 +10,6 @@ package com.evan.training.intro;
 * @since Dec 13, 2021
 * @updates:
 */
-
-
-
-/**
-* <b>Title</b>: Exercise1BRefactored.java
-* <b>Project</b>: SMTJavaTraining
-* <b>Package</b>: com.evan.training.intro
-* <b>Description: </b> Displays 3 different sequences with loops
-* 
-* @author egeneroli
-* @version 2.0
-* @since Dec 13, 2021
-* @updates: moves everything out of main method (compared to og Exercise1B)
-*/
 public class Exercise1BRefactored {
 	
 	public static void main(String[] args) {
