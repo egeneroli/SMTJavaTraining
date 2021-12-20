@@ -2,6 +2,7 @@
  * 
  */
 package com.evan.training.guessingGame;
+import java.util.Scanner;
 
 /****************************************************************************
 * <b>Title</b>: GuessingGame.java
@@ -26,19 +27,26 @@ public class GuessingGame {
 	}
 	
 	/**
-	 * Workflow method -- lays out logic of game 
+	 * Workflow method -- lays out game play logic
+	 * -- no arguments necessary
 	 */
 	public void play() {
 	//1-intial game set-up
+		//instantiate object of scanner class to get user input
+		Scanner scan = new Scanner(System.in);
+		
 		//a-prompt user for language choice, take input, store in lang
-		String lang;
+		//String lang;
 		
 		//b-prompt user for min/max int values for random number, take input, store in minInt/maxInt
-		int minInt;
-		int maxInt;
+		System.out.print("Enter minimum value for random number generator");
+		int minInt = scan.nextInt();
+
+		System.out.println("Enter maximum value for random number generator");
+		int maxInt = scan.nextInt();
 		
 		//c-prompt user for name, take input, store in userName
-		int userName;
+		//String userName;
 		
 		//d-generate random number, store in secretNumber
 		int secretNumber = genRandInt(minInt, maxInt);
@@ -47,36 +55,35 @@ public class GuessingGame {
 		int numOfGuesses = 0;
 		
 		//f-create record variable, initialize (to ?)
-		int recordNumOfGuesses;
+		//int recordNumOfGuesses;
 		
 	//2-game play
 		//repeat until guess is correct
 		while (true) {
 			//a-prompt user for guess, take input, store in userGuess
-			String stringGuess;
-			int userGuess = Integer.parseInt(stringGuess);
+			//String stringGuess;
+			//int userGuess = Integer.parseInt(stringGuess);
+			System.out.println("Guess: enter a number between " + minInt + " and " + maxInt);
+			int userGuess = scan.nextInt();
 			
 			// increment numOfGuesses
 			numOfGuesses++;
 		
 			//b-check userGuess against secretNumber
-			if (userGuess != secretNumber) {
-				//if incorrect: display "guess too high/low", prompt user for another guess
-				if (userGuess > secretNumber) {
-					System.out.println("Guess is too high. Guess again.");
-				} else {
-					System.out.println("Guess is too low. Guess again.");
-				}
-				
-			} else {
+			if (userGuess == secretNumber) {
 				//if correct: proceed to end of game
-				System.out.println("Correct, the number was " + secretNumber + ".");
 				break;
+				//if incorrect: display "guess too high/low", prompt user for another guess
+			} else if (userGuess < secretNumber){
+				System.out.println("Guess is too low.");
+			} else if (userGuess > secretNumber) {
+				System.out.println("Guess is too high");
 			}
 		}
 	//3-end of game
 		//a-display numOfGuesses
-		
+		System.out.println("Correct! The number was " + secretNumber + ".");
+		System.out.println("You took " + numOfGuesses + " guesses");
 		//b-display record numOfGuesses
 		
 		//c-prompt user if they want to play again (yes/no)
