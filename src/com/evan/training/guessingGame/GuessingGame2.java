@@ -2,9 +2,9 @@
  * 
  */
 package com.evan.training.guessingGame;
+
+//import java.io.Console;
 //import java.util.Scanner;
-import java.io.Console;
-import java.util.Scanner;
 /****************************************************************************
 * <b>Title</b>: GuessingGame.java
 * <b>Project</b>: SMTJavaTraining
@@ -16,14 +16,14 @@ import java.util.Scanner;
 * @since Dec 15, 2021
 * @updates:
 ****************************************************************************/
-public class GuessingGame {
+public class GuessingGame2 {
 	
 	/**
 	 * Main method -- initializes program, instantiates GuessGame class, calls play (workflow method) 
 	 * @param args -- command line args, none necessary
 	 */
 	public static void main(String[] args) {
-		GuessingGame game = new GuessingGame();
+		GuessingGame2 game = new GuessingGame2();
 		game.play();
 	}
 	
@@ -34,22 +34,20 @@ public class GuessingGame {
 	public void play() {
 	//1-intial game set-up
 		//instantiate object of scanner class to get user input
-		Scanner scan = new Scanner(System.in);
-		//GameHelper helper = new GameHelper();
+		//Scanner scan = new Scanner(System.in);
+		GameHelper helper = new GameHelper();
 		
 		//a-prompt user for language choice, take input, store in lang
 		//String lang;
 		
 		//b-prompt user for min/max int values for random number, take input, store in minInt/maxInt
-		System.out.print("Enter minimum value for random number generator.");
-		//String input = helper.getUserInput("Enter minimum value for random number generator.");
-		
-		int minInt = scan.nextInt();
-		//String input = scan.next();
-		//int i = Integer.parseInt(scan.next());
+		//System.out.print("Enter minimum value for random number generator.");
+		//int minInt = scan.nextInt();
+		int minInt = helper.getIntInput("Enter minimum integer value for random number generator.");
 
-		System.out.println("Enter maximum value for random number generator");
-		int maxInt = scan.nextInt();
+		//System.out.println("Enter maximum value for random number generator");
+		//int maxInt = scan.nextInt();
+		int maxInt = helper.getIntInput("Enter maximum integer value for random number generator.");
 		
 		//c-prompt user for name, take input, store in userName
 		//String userName;
@@ -69,8 +67,9 @@ public class GuessingGame {
 			//a-prompt user for guess, take input, store in userGuess
 			//String stringGuess;
 			//int userGuess = Integer.parseInt(stringGuess);
-			System.out.println("Guess: enter a number between " + minInt + " and " + maxInt);
-			int userGuess = scan.nextInt();
+			//System.out.println("Guess: enter an integer between " + minInt + " and " + maxInt);
+			int userGuess = helper.getIntInput("Enter an integer guess between " + minInt + " and " + maxInt + ".", minInt, maxInt);
+			//int userGuess = scan.nextInt();
 			
 			// increment numOfGuesses
 			numOfGuesses++;
