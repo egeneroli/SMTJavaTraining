@@ -5,7 +5,7 @@ package com.evan.training.intro;
 
 import java.util.TreeMap;
 
-/**
+/****************************************************************************
 * <b>Title</b>: Exercise4.java
 * <b>Project</b>: SMTJavaTraining
 * <b>Package</b>: com.evan.training.intro
@@ -15,7 +15,7 @@ import java.util.TreeMap;
 * @version 1.0
 * @since Dec 14, 2021
 * @updates:
-*/
+****************************************************************************/
 public class Exercise4 {
 	
 	public static void main(String[] args) {

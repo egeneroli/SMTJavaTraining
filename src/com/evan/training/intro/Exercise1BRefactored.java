@@ -1,6 +1,6 @@
 package com.evan.training.intro;
 
-/**
+/****************************************************************************
 * <b>Title</b>: Exercise1BRefactored.java
 * <b>Project</b>: SMT-Java-Training
 * <b>Description: </b> Redo of Exercise 1B -- everything was previously in main method
@@ -9,7 +9,7 @@ package com.evan.training.intro;
 * @version 1.0
 * @since Dec 13, 2021
 * @updates:
-*/
+****************************************************************************/
 public class Exercise1BRefactored {
 	
 	public static void main(String[] args) {
