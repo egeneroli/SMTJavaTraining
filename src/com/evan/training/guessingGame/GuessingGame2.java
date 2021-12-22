@@ -36,11 +36,14 @@ public class GuessingGame2 {
 		//instantiate object of scanner class to get user input
 		//Scanner scan = new Scanner(System.in);
 		GameHelper helper = new GameHelper();
-		
+
 		//a-prompt user for language choice, take input, store in lang
 		//String lang;
 		
-		//b-prompt user for min/max int values for random number, take input, store in minInt/maxInt
+		//b-prompt user for name, take input, store in userName
+		//String userName;
+		
+		//c-prompt user for min/max int values for random number, take input, store in minInt/maxInt
 		//System.out.print("Enter minimum value for random number generator.");
 		//int minInt = scan.nextInt();
 		int minInt = helper.getIntInput("Enter minimum integer value for random number generator.");
@@ -48,53 +51,57 @@ public class GuessingGame2 {
 		//System.out.println("Enter maximum value for random number generator");
 		//int maxInt = scan.nextInt();
 		int maxInt = helper.getIntInput("Enter maximum integer value for random number generator.");
-		
-		//c-prompt user for name, take input, store in userName
-		//String userName;
-		
-		//d-generate random number, store in secretNumber
-		int secretNumber = genRandInt(minInt, maxInt);
-		
-		//e-create numOfGuesses variable, initialize to 0
-		int numOfGuesses = 0;
-		
-		//f-create record variable, initialize (to ?)
+				
+		//d-create record variable, initialize (to ?)
 		//int recordNumOfGuesses;
 		
-	//2-game play
-		//repeat until guess is correct
+		// loop for playing game again
 		while (true) {
-			//a-prompt user for guess, take input, store in userGuess
-			//String stringGuess;
-			//int userGuess = Integer.parseInt(stringGuess);
-			//System.out.println("Guess: enter an integer between " + minInt + " and " + maxInt);
-			int userGuess = helper.getIntInput("Enter an integer guess between " + minInt + " and " + maxInt + ".", minInt, maxInt);
-			//int userGuess = scan.nextInt();
+			//e-generate random number, store in secretNumber
+			int secretNumber = genRandInt(minInt, maxInt);
 			
-			// increment numOfGuesses
-			numOfGuesses++;
-		
-			//b-check userGuess against secretNumber
-			if (userGuess == secretNumber) {
-				//if correct: proceed to end of game
+			//f-create numOfGuesses variable, initialize to 0
+			int numOfGuesses = 0;
+					
+		//2-game play
+			//repeat until guess is correct
+			while (true) {
+				//a-prompt user for guess, take input, store in userGuess
+				//String stringGuess;
+				//int userGuess = Integer.parseInt(stringGuess);
+				//System.out.println("Guess: enter an integer between " + minInt + " and " + maxInt);
+				int userGuess = helper.getIntInput("Enter an integer guess between " + minInt + " and " + maxInt + ".", minInt, maxInt);
+				//int userGuess = scan.nextInt();
+				
+				// increment numOfGuesses
+				numOfGuesses++;
+			
+				//b-check userGuess against secretNumber
+				if (userGuess == secretNumber) {
+					//if correct: proceed to end of game
+					break;
+					//if incorrect: display "guess too high/low", prompt user for another guess
+				} else if (userGuess < secretNumber){
+					System.out.println("Guess is too low.");
+				} else if (userGuess > secretNumber) {
+					System.out.println("Guess is too high");
+				}
+			}
+		//3-end of game
+			//a-display numOfGuesses
+			System.out.println("Correct! The number was " + secretNumber + ".");
+			System.out.println("You took " + numOfGuesses + " guesses");
+			//b-display record numOfGuesses
+			
+			//c-ask user if they want to play again (yes/no)
+			//Boolean playAgain = true;
+			String input = helper.getStringInputYesNo("Play again? (Enter yes/no)");
+			if (input != "yes") {
 				break;
-				//if incorrect: display "guess too high/low", prompt user for another guess
-			} else if (userGuess < secretNumber){
-				System.out.println("Guess is too low.");
-			} else if (userGuess > secretNumber) {
-				System.out.println("Guess is too high");
 			}
 		}
-	//3-end of game
-		//a-display numOfGuesses
-		System.out.println("Correct! The number was " + secretNumber + ".");
-		System.out.println("You took " + numOfGuesses + " guesses");
-		//b-display record numOfGuesses
 		
-		//c-prompt user if they want to play again (yes/no)
-			//if yes: return to initial game set-up
-		
-			//if no: end, display game over
+		System.out.println("Game over.");
 	}
 	
 	
