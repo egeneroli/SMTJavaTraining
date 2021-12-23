@@ -3,7 +3,8 @@
  */
 package com.evan.training.guessingGame;
 
-import com.ibm.watson.language_translator.v3.LanguageTranslator;
+//import java.util.HashMap;
+//import java.util.Map;
 //import java.io.Console;
 //import java.util.Scanner;
 /****************************************************************************
@@ -38,8 +39,13 @@ public class GuessingGame2 {
 		//Scanner scan = new Scanner(System.in);
 		GameHelper helper = new GameHelper();
 
+
+		
 		//-prompt user for language choice, take input, store in lang
-		String lang = helper.getStringInputLanguage("Choose language: english/spanish.");
+		String lang = "english";
+		
+		lang = helper.getStringInputLanguage("Choose language: english/spanish.");
+		//lang = helper.getStringInputLanguage(helper.langDict("languagePrompt", lang));
 		
 		//-prompt user for name, take input, store in userName
 		String userName = helper.getStringInput("Enter your name.");
@@ -72,7 +78,8 @@ public class GuessingGame2 {
 				//String stringGuess;
 				//int userGuess = Integer.parseInt(stringGuess);
 				//System.out.println("Guess: enter an integer between " + minInt + " and " + maxInt);
-				int userGuess = helper.getIntInput("Enter an integer guess between " + minInt + " and " + maxInt + ".", minInt, maxInt);
+				//int userGuess = helper.getIntInput("Enter an integer guess between " + minInt + " and " + maxInt + ".", minInt, maxInt);
+				int userGuess = helper.getIntInput(String.format("Enter an integer guess between %d and %d.", minInt, maxInt), minInt, maxInt);
 				//int userGuess = scan.nextInt();
 				
 				// increment numOfGuesses
@@ -84,15 +91,15 @@ public class GuessingGame2 {
 					break;
 					//if incorrect: display "guess too high/low", prompt user for another guess
 				} else if (userGuess < secretNumber){
-					System.out.println("Guess is too low.");
+					System.out.println("Your guess is too low.");
 				} else if (userGuess > secretNumber) {
-					System.out.println("Guess is too high");
+					System.out.println("Your guess is too high");
 				}
 			}
 		//3-end of game
 			//-display numOfGuesses
 			System.out.println("Correct! The number was " + secretNumber + ".");
-			System.out.println("You took " + numOfGuesses + " guesses");
+			System.out.println("You took " + numOfGuesses + " guesses.");
 			//-display record numOfGuesses
 			if (numOfGuesses < recordNumOfGuesses) {
 				recordNumOfGuesses = numOfGuesses;
@@ -124,7 +131,5 @@ public class GuessingGame2 {
 		int randVal = min + (int) (Math.random() * ((max - min) + 1));
 		return randVal;
 	}
-	
-
 	
 }
