@@ -2,8 +2,6 @@
  * 
  */
 package com.evan.training.guessingGame;
-//import java.util.Scanner;
-import java.io.Console;
 import java.util.Scanner;
 /****************************************************************************
 * <b>Title</b>: GuessingGame.java

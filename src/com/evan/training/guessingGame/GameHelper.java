@@ -9,7 +9,7 @@ import java.util.Scanner;
 * <b>Title</b>: GameHelper.java
 * <b>Project</b>: SMTJavaTraining
 * <b>Package</b>: com.evan.training.guessingGame
-* <b>Description: </b> FILL IN DESCRIPTION HERE
+* <b>Description: </b> Assists guessing game with I/O
 * 
 * @author egeneroli
 * @version 1.0
