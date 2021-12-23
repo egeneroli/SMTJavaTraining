@@ -3,6 +3,7 @@
  */
 package com.evan.training.guessingGame;
 
+import com.ibm.watson.language_translator.v3.LanguageTranslator;
 //import java.io.Console;
 //import java.util.Scanner;
 /****************************************************************************
@@ -38,10 +39,10 @@ public class GuessingGame2 {
 		GameHelper helper = new GameHelper();
 
 		//-prompt user for language choice, take input, store in lang
-		//String lang;
+		String lang = helper.getStringInputLanguage("Choose language: english/spanish.");
 		
 		//-prompt user for name, take input, store in userName
-		//String userName;
+		String userName = helper.getStringInput("Enter your name.");
 		
 		//-prompt user for min/max int values for random number, take input, store in minInt/maxInt
 		//System.out.print("Enter minimum value for random number generator.");
@@ -95,9 +96,9 @@ public class GuessingGame2 {
 			//-display record numOfGuesses
 			if (numOfGuesses < recordNumOfGuesses) {
 				recordNumOfGuesses = numOfGuesses;
-				System.out.println("You have the new record at " + numOfGuesses + " guesses'");
+				System.out.println("You have the new record at " + numOfGuesses + " guesses.");
 			} else if (numOfGuesses == recordNumOfGuesses) {
-				System.out.println("You tied the record at " + numOfGuesses + " guesses'");
+				System.out.println("You tied the record at " + numOfGuesses + " guesses.");
 			} else {
 				System.out.println("The record is " + recordNumOfGuesses + " guesses.");
 			}

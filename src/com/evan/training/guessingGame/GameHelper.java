@@ -92,7 +92,27 @@ public class GameHelper {
 		while (true) {
 			System.out.println(prompt);
 			input = scan.next();
-			if (input.length() > 0 && input.toLowerCase().matches("(yes|no){1}")) {
+			if (input.length() > 0 && input.toLowerCase().matches("(yes|no)")) {
+				//scan.close();
+				break;
+			}
+		}
+		return input.toLowerCase();
+
+	}	
+	
+	/**
+	 * takes string input yes/no from user
+	 * @param prompt Prints to user as prompt for input -- enter empty string if none
+	 * @return String of user input (yes or no)
+	 */
+	public String getStringInputLanguage(String prompt) {
+		//Scanner scan = new Scanner(System.in);
+		String input = "";
+		while (true) {
+			System.out.println(prompt);
+			input = scan.next();
+			if (input.length() > 0 && input.toLowerCase().matches("(english|spanish)")) {
 				//scan.close();
 				break;
 			}
