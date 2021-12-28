@@ -5,11 +5,7 @@ package com.evan.training.guessingGame;
 
 import java.util.HashMap;
 import java.util.Map;
-
-//import java.util.HashMap;
-//import java.util.Map;
-//import java.io.Console;
-//import java.util.Scanner;
+import java.util.Scanner;
 /****************************************************************************
 * <b>Title</b>: GuessingGame.java
 * <b>Project</b>: SMTJavaTraining
@@ -21,23 +17,27 @@ import java.util.Map;
 * @since Dec 15, 2021
 * @updates:
 ****************************************************************************/
-public class GuessingGame3 {
+public class GuessingGame4 {
+	
+	Scanner scan = new Scanner(System.in);
+	Map<String, Map<String,String>> stringMap;
+	
 	
 	/**
 	 * Main method -- initializes program, instantiates GuessingGame class, calls play (workflow method) 
 	 * @param args -- command line args, none necessary
 	 */
 	public static void main(String[] args) {
-		GuessingGame3 game = new GuessingGame3();
+		GuessingGame4 game = new GuessingGame4();
 		game.play();
 	}
 	
 	
-	/** Constructor
+	/** Constructor -- builds prompt dict
 	 * creates map of prompts/other output in english & spanish
 	 */
-	Map<String, Map<String,String>> stringMap = new HashMap<>();
-	public GuessingGame3() {
+	public GuessingGame4() {
+		stringMap = new HashMap<>();
 		
 		stringMap.put("languagePrompt", new HashMap<>());
 		stringMap.get("languagePrompt").put("english", "Choose language: english/spanish.");
@@ -105,28 +105,28 @@ public class GuessingGame3 {
 	//1-intial game set-up
 		//instantiate I/O object 
 		//Scanner scan = new Scanner(System.in);
-		GameHelper helper = new GameHelper();
+		//GameHelper helper = new GameHelper();
 		
 		//-prompt user for language choice, take input, store in lang
 		String lang = "english";
 		
-		lang = helper.getStringInputLanguage(stringMap.get("languagePrompt").get(lang));
+		lang = getStringInputLanguage(stringMap.get("languagePrompt").get(lang));
 		//lang = helper.getStringInputLanguage("Choose language: english/spanish.");
 		//lang = helper.getStringInputLanguage(helper.langDict("languagePrompt", lang));
 		
 		//-prompt user for name, take input, store in userName
-		String userName = helper.getStringInput(stringMap.get("namePrompt").get(lang));
+		String userName = getStringInput(stringMap.get("namePrompt").get(lang));
 		//String userName = helper.getStringInput("Enter your name.");
 		
 		//-prompt user for min/max int values for random number, take input, store in minInt/maxInt
 		//System.out.print("Enter minimum value for random number generator.");
 		//int minInt = scan.nextInt();
-		int minInt = helper.getIntInput(stringMap.get("minIntPrompt").get(lang));
+		int minInt = getIntInput(stringMap.get("minIntPrompt").get(lang));
 		//int minInt = helper.getIntInput("Enter minimum integer value for random number generator.");
 
 		//System.out.println("Enter maximum value for random number generator");
 		//int maxInt = scan.nextInt();
-		int maxInt = helper.getIntInput(stringMap.get("maxIntPrompt").get(lang));
+		int maxInt = getIntInput(stringMap.get("maxIntPrompt").get(lang));
 		//int maxInt = helper.getIntInput("Enter maximum integer value for random number generator.");
 				
 		//-create record variable, initialize (to ?)
@@ -149,7 +149,7 @@ public class GuessingGame3 {
 				//int userGuess = Integer.parseInt(stringGuess);
 				//System.out.println("Guess: enter an integer between " + minInt + " and " + maxInt);
 				//int userGuess = helper.getIntInput("Enter an integer guess between " + minInt + " and " + maxInt + ".", minInt, maxInt);
-				int userGuess = helper.getIntInput(String.format(stringMap.get("guessPrompt").get(lang), minInt, maxInt), minInt, maxInt);
+				int userGuess = getIntInput(String.format(stringMap.get("guessPrompt").get(lang), minInt, maxInt), minInt, maxInt);
 				//int userGuess = scan.nextInt();
 				
 				// increment numOfGuesses
@@ -181,7 +181,7 @@ public class GuessingGame3 {
 			}
 			
 			//-ask user if they want to play again (yes/no)
-			String input = helper.getStringInputYesNo(stringMap.get("playAgain").get(lang));
+			String input = getStringInputYesNo(stringMap.get("playAgain").get(lang));
 			if (input.equals("no")) {
 				stillPlaying = false;
 			}
@@ -201,5 +201,106 @@ public class GuessingGame3 {
 		int randVal = min + (int) (Math.random() * ((max - min) + 1));
 		return randVal;
 	}
+	
+	/**
+	 * takes string input from user
+	 * @param prompt Prints to user as prompt for input -- enter empty string if none
+	 * @return String of user input
+	 */
+	public String getStringInput(String prompt) {
+		//Scanner scan = new Scanner(System.in);
+		String input = "";
+		while (true) {
+			System.out.println(prompt);
+			input = scan.next();
+			if (input.length() > 0 && input.matches("[A-Za-z]+")) {
+				//scan.close();
+				break;
+			}
+		}
+		return input.toLowerCase();
+
+	}	
+	
+	/**
+	 * takes integer input from user
+	 * @param prompt Prints to user as prompt for input -- enter empty string if none
+	 * @return Int -- user input
+	 */
+	public int getIntInput(String prompt) {
+		//Scanner scan = new Scanner(System.in); 
+		String input = "";
+		while (true) {
+			System.out.println(prompt);
+			input = scan.next();
+			if (input.length() > 0 && input.matches("[0-9]+")) {
+				//scan.close();
+				break;
+			}
+		}
+		return Integer.parseInt(input);
+	}	
+
+	/**
+	 * takes integer input from user
+	 * @param prompt Prints to user as prompt for input -- enter empty string if none
+	 * @param min Minimum number that will be accepted
+	 * @param max Maximum number that will be accepted
+	 * @return Int -- user input
+	 */
+	public int getIntInput(String prompt, int min, int max) {
+		//Scanner scan = new Scanner(System.in); 
+		String input = "";
+		while (true) {
+			System.out.println(prompt);
+			input = scan.next();
+			if (input.length() > 0 && input.matches("[0-9]+") && Integer.parseInt(input) >= min && Integer.parseInt(input) <= max) {
+				//scan.close();
+				break;
+			}
+		}
+		return Integer.parseInt(input);
+	}	
+	
+	/**
+	 * takes string input yes/no from user
+	 * @param prompt Prints to user as prompt for input -- enter empty string if none
+	 * @return String of user input (yes or no)
+	 */
+	public String getStringInputYesNo(String prompt) {
+		//Scanner scan = new Scanner(System.in);
+		String input = "";
+		while (true) {
+			System.out.println(prompt);
+			input = scan.next();
+			if (input.length() > 0 && input.toLowerCase().matches("(yes|no|si)")) {
+				//scan.close();
+				break;
+			}
+		}
+		return input.toLowerCase();
+
+	}	
+	
+	/**
+	 * takes string input yes/no from user
+	 * @param prompt Prints to user as prompt for input -- enter empty string if none
+	 * @return String of user input (yes or no)
+	 */
+	public String getStringInputLanguage(String prompt) {
+		//Scanner scan = new Scanner(System.in);
+		String input = "";
+		while (true) {
+			System.out.println(prompt);
+			input = scan.next();
+			if (input.length() > 0 && input.toLowerCase().matches("(english|spanish)")) {
+				//scan.close();
+				break;
+			}
+		}
+		return input.toLowerCase();
+
+	}	
+	
 	
 }
