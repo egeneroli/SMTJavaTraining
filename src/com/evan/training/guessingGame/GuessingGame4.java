@@ -98,7 +98,7 @@ public class GuessingGame4 {
 	}
 
 	/**
-	 * Workflow method -- lays out game play logic
+	 * Workflow method -- lays out gameplay logic
 	 * -- no arguments necessary
 	 */
 	public void play() {
@@ -188,6 +188,7 @@ public class GuessingGame4 {
 		}
 		
 		System.out.println(stringMap.get("playAgain").get(lang));
+		scan.close();
 	}
 	
 	
