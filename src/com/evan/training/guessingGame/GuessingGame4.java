@@ -103,31 +103,17 @@ public class GuessingGame4 {
 	 */
 	public void play() {
 	//1-intial game set-up
-		//instantiate I/O object 
-		//Scanner scan = new Scanner(System.in);
-		//GameHelper helper = new GameHelper();
-		
 		//-prompt user for language choice, take input, store in lang
 		String lang = "english";
 		
 		lang = getStringInputLanguage(stringMap.get("languagePrompt").get(lang));
-		//lang = helper.getStringInputLanguage("Choose language: english/spanish.");
-		//lang = helper.getStringInputLanguage(helper.langDict("languagePrompt", lang));
 		
 		//-prompt user for name, take input, store in userName
 		String userName = getStringInput(stringMap.get("namePrompt").get(lang));
-		//String userName = helper.getStringInput("Enter your name.");
 		
 		//-prompt user for min/max int values for random number, take input, store in minInt/maxInt
-		//System.out.print("Enter minimum value for random number generator.");
-		//int minInt = scan.nextInt();
 		int minInt = getIntInput(stringMap.get("minIntPrompt").get(lang));
-		//int minInt = helper.getIntInput("Enter minimum integer value for random number generator.");
-
-		//System.out.println("Enter maximum value for random number generator");
-		//int maxInt = scan.nextInt();
 		int maxInt = getIntInput(stringMap.get("maxIntPrompt").get(lang));
-		//int maxInt = helper.getIntInput("Enter maximum integer value for random number generator.");
 				
 		//-create record variable, initialize (to ?)
 		int recordNumOfGuesses = Integer.MAX_VALUE;
@@ -143,24 +129,17 @@ public class GuessingGame4 {
 					
 		//2-game play
 			//repeat until guess is correct
-			while (true) {
+			int userGuess = Integer.MIN_VALUE;
+			
+			while (userGuess != secretNumber) {
 				//-prompt user for guess, take input, store in userGuess
-				//String stringGuess;
-				//int userGuess = Integer.parseInt(stringGuess);
-				//System.out.println("Guess: enter an integer between " + minInt + " and " + maxInt);
-				//int userGuess = helper.getIntInput("Enter an integer guess between " + minInt + " and " + maxInt + ".", minInt, maxInt);
-				int userGuess = getIntInput(String.format(stringMap.get("guessPrompt").get(lang), minInt, maxInt), minInt, maxInt);
-				//int userGuess = scan.nextInt();
+				userGuess = getIntInput(String.format(stringMap.get("guessPrompt").get(lang), minInt, maxInt), minInt, maxInt);
 				
 				// increment numOfGuesses
 				numOfGuesses++;
 			
-				//-check userGuess against secretNumber
-				if (userGuess == secretNumber) {
-					//if correct: proceed to end of game
-					break;
-					//if incorrect: display "guess too high/low", prompt user for another guess
-				} else if (userGuess < secretNumber){
+				//if incorrect: display "guess too high/low"
+				if (userGuess < secretNumber){
 					System.out.println(stringMap.get("guessTooHigh").get(lang));
 				} else if (userGuess > secretNumber) {
 					System.out.println(stringMap.get("guessTooLow").get(lang));
@@ -202,7 +181,7 @@ public class GuessingGame4 {
 		int randVal = min + (int) (Math.random() * ((max - min) + 1));
 		return randVal;
 	}
-	
+
 	/**
 	 * takes string input from user
 	 * @param prompt Prints to user as prompt for input -- enter empty string if none
@@ -215,7 +194,6 @@ public class GuessingGame4 {
 			System.out.println(prompt);
 			input = scan.next();
 			if (input.length() > 0 && input.matches("[A-Za-z]+")) {
-				//scan.close();
 				break;
 			}
 		}
@@ -235,7 +213,6 @@ public class GuessingGame4 {
 			System.out.println(prompt);
 			input = scan.next();
 			if (input.length() > 0 && input.matches("[0-9]+")) {
-				//scan.close();
 				break;
 			}
 		}
@@ -256,7 +233,6 @@ public class GuessingGame4 {
 			System.out.println(prompt);
 			input = scan.next();
 			if (input.length() > 0 && input.matches("[0-9]+") && Integer.parseInt(input) >= min && Integer.parseInt(input) <= max) {
-				//scan.close();
 				break;
 			}
 		}
@@ -275,7 +251,6 @@ public class GuessingGame4 {
 			System.out.println(prompt);
 			input = scan.next();
 			if (input.length() > 0 && input.toLowerCase().matches("(yes|no|si)")) {
-				//scan.close();
 				break;
 			}
 		}
@@ -295,7 +270,6 @@ public class GuessingGame4 {
 			System.out.println(prompt);
 			input = scan.next();
 			if (input.length() > 0 && input.toLowerCase().matches("(english|spanish)")) {
-				//scan.close();
 				break;
 			}
 		}
