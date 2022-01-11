@@ -15,5 +15,5 @@ package com.evan.training.spider;
 * @updates:
 ****************************************************************************/
 public class Spider {
-	//asdf
+	
 }
