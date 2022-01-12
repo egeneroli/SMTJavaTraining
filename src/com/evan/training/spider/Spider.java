@@ -15,5 +15,47 @@ package com.evan.training.spider;
 * @updates:
 ****************************************************************************/
 public class Spider {
+	// member variables?
 	
+	
+	/**
+	 * initializes program, instantiates Spider class and calls workflow method 
+	 * @param args - command line arguments, none necessary
+	 */
+	public static void main(String[] args) {
+		Spider s = new Spider();
+		s.run();
+	}
+	
+	/**
+	 * workflow method - lays out primary program logic, calls other classes/methods
+	 */
+	public void run() {
+		// Get siliconmtn.com homepage
+		
+		// Extract and store cookies
+		
+		// Save homepage html
+		
+		// Parse homepage html
+		
+		// Extract links from homepage html, store in set
+		
+		// Repeat while more links
+			// Get page for link
+			
+			// Save html from page
+			
+			// Parse html
+			
+			// Extract any more links, add to link set
+		
+		// Get admin tool page
+		
+		// Post: Log-in to admintool page
+		
+		// Get "schedule job instances" page
+		
+		// Save html from page
+	}
 }
