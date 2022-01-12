@@ -25,7 +25,7 @@ public class GuessingGame5 {
 	
 	/**
 	 * Main method -- initializes program, instantiates GuessingGame class, calls play (workflow method) 
-	 * @param args -- command line args, none necessary
+	 * @param args -- command line arguments, none necessary
 	 */
 	public static void main(String[] args) {
 		GuessingGame5 game = new GuessingGame5();
