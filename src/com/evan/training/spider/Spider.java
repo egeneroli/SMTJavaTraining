@@ -52,7 +52,7 @@ public class Spider {
 		
 		// Get admin tool page
 		
-		// Post: Log-in to admintool page
+		// Log-in to admintool page
 		
 		// Get "schedule job instances" page
 		
