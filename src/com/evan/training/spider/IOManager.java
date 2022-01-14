@@ -3,6 +3,9 @@
  */
 package com.evan.training.spider;
 
+import java.io.File;
+import java.io.FileWriter;
+
 /****************************************************************************
 * <b>Title</b>: IOManager.java
 * <b>Project</b>: SMTJavaTraining
@@ -15,5 +18,19 @@ package com.evan.training.spider;
 * @updates:
 ****************************************************************************/
 public class IOManager {
-
+	
+	/**
+	 * writes string to file
+	 * @param text - string to be saved
+	 * @param filepath - relative filepath where text will be saved
+	 */
+	public void writeToFile(String text, String filepath) {
+		try {
+			FileWriter fileOut = new FileWriter(new File(filepath));
+			fileOut.write(text);
+			fileOut.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

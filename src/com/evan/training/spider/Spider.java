@@ -3,6 +3,10 @@
  */
 package com.evan.training.spider;
 
+import java.util.ArrayList;
+
+import com.evan.training.spider.ConnectionManager.HttpRequestMethod;
+
 /****************************************************************************
 * <b>Title</b>: Spider.java
 * <b>Project</b>: SMTJavaTraining
@@ -16,7 +20,7 @@ package com.evan.training.spider;
 ****************************************************************************/
 public class Spider {
 	// member variables?
-	
+		// cookies? -- or make member variable in ConnectionManager
 	
 	/**
 	 * initializes program, instantiates Spider class and calls workflow method 
@@ -32,10 +36,16 @@ public class Spider {
 	 */
 	public void run() {
 		// Get siliconmtn.com homepage
-		
-		// Extract and store cookies
+		ConnectionManager cm = new ConnectionManager();
+		String homePage = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.head);
+		System.out.println(homePage + "\n");
 		
 		// Save homepage html
+		IOManager io = new IOManager();
+		io.writeToFile(homePage, "homePage.txt");
+		
+		// Extract and store cookies
+		ArrayList<String> cookieList = cm.extractCookies(homePage);
 		
 		// Parse homepage html
 		
@@ -43,6 +53,8 @@ public class Spider {
 		
 		// Repeat while more links
 			// Get page for link
+		String aboutPage = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.head, cookieList, "about");
+		System.out.println(aboutPage);
 			
 			// Save html from page
 			
