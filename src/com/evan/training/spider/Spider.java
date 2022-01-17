@@ -3,9 +3,15 @@
  */
 package com.evan.training.spider;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import com.evan.training.spider.ConnectionManager.HttpRequestMethod;
+
 
 /****************************************************************************
 * <b>Title</b>: Spider.java
@@ -37,31 +43,56 @@ public class Spider {
 	public void run() {
 		// Get siliconmtn.com homepage
 		ConnectionManager cm = new ConnectionManager();
-		String homePage = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.head);
-		System.out.println(homePage + "\n");
+		String homePage = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.get, "/");
+		//System.out.println(homePage + "\n");
 		
 		// Save homepage html
-		IOManager io = new IOManager();
-		io.writeToFile(homePage, "homePage.txt");
+		IOManager io = new IOManager("spiderHtml/");
+		io.writeTextFile(homePage, "home");
+		//String homePage = io.readTextFile("homePage.txt");
+		//System.out.println(homePage);
 		
 		// Extract and store cookies
-		ArrayList<String> cookieList = cm.extractCookies(homePage);
+		/* ArrayList<String> cookieList = cm.extractCookies(homePage);
+		for (String s: cookieList) {
+			System.out.println(s);
+		} */
 		
-		// Parse homepage html
 		
-		// Extract links from homepage html, store in set
+		// Parse homepage html, extract links from homepage html, store in set
+		HtmlParser parser = new HtmlParser();
+		HashSet<String> linkSet = parser.extractLinks(homePage);
+		/*
+		Document doc = Jsoup.parse(homePage);
+		//System.out.print(doc);
+		
+		HashSet<String> linkSet = new HashSet<>();
+		Elements links = doc.select("a");
+		for (var e: links) {
+			var link = e.attr("href");
+			if (link.startsWith("/") && !link.equals("/")) {
+				linkSet.add(link);
+				//System.out.println(link);
+			}
+		}
+		*/
 		
 		// Repeat while more links
+		Iterator<String> itr = linkSet.iterator();
+		while (itr.hasNext()) {
+			// get next link from linkSet iterator
+			String link = itr.next();
+			
 			// Get page for link
-		String aboutPage = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.head, cookieList, "about");
-		System.out.println(aboutPage);
+			String pageHtml = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.get, link);
 			
 			// Save html from page
+			io.writeTextFile(pageHtml, link.substring(1));
 			
-			// Parse html
+			// Parse html, extract any more links, add to link set
 			
-			// Extract any more links, add to link set
-		
+		}
+
 		// Get admin tool page
 		
 		// Log-in to admintool page
