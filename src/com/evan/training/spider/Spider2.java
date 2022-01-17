@@ -43,8 +43,8 @@ public class Spider2 {
 		
 		// Save homepage html
 		IOManager io = new IOManager();
-		io.writeTextFile(homePage, "homePage.txt");
-		//String homePage = io.readTextFile("homePage.txt");
+		io.writeTextFile(homePage, "homePage");
+		//String homePage = io.readTextFile("homePage");
 		System.out.println(homePage);
 		
 		// Extract and store cookies

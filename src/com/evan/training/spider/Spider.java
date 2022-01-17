@@ -49,7 +49,7 @@ public class Spider {
 		// Save homepage html
 		IOManager io = new IOManager("spiderHtml/");
 		io.writeTextFile(homePage, "home");
-		//String homePage = io.readTextFile("homePage.txt");
+		//String homePage = io.readTextFile("homePage");
 		//System.out.println(homePage);
 		
 		// Extract and store cookies
@@ -62,21 +62,7 @@ public class Spider {
 		// Parse homepage html, extract links from homepage html, store in set
 		HtmlParser parser = new HtmlParser();
 		HashSet<String> linkSet = parser.extractLinks(homePage);
-		/*
-		Document doc = Jsoup.parse(homePage);
-		//System.out.print(doc);
-		
-		HashSet<String> linkSet = new HashSet<>();
-		Elements links = doc.select("a");
-		for (var e: links) {
-			var link = e.attr("href");
-			if (link.startsWith("/") && !link.equals("/")) {
-				linkSet.add(link);
-				//System.out.println(link);
-			}
-		}
-		*/
-		
+
 		// Repeat while more links
 		Iterator<String> itr = linkSet.iterator();
 		while (itr.hasNext()) {
@@ -90,9 +76,14 @@ public class Spider {
 			io.writeTextFile(pageHtml, link.substring(1));
 			
 			// Parse html, extract any more links, add to link set
-			
+			HashSet<String> additionalLinks = parser.extractLinks(pageHtml);
+			linkSet.addAll(additionalLinks);
 		}
 
+		for (String link: linkSet) {
+			System.out.println(link);
+		}
+		
 		// Get admin tool page
 		
 		// Log-in to admintool page

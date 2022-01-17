@@ -48,6 +48,7 @@ public class ConnectionManager2 {
 	        socket = (SSLSocket) factory.createSocket(host, port);
 	        socket.startHandshake();
 	        
+	        /*
 	        out = new PrintWriter(
                      new BufferedWriter(
                      new OutputStreamWriter(
@@ -56,6 +57,7 @@ public class ConnectionManager2 {
 			in = new BufferedReader(
 			                       new InputStreamReader(
 			                       socket.getInputStream()));
+			*/
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,13 +96,14 @@ public class ConnectionManager2 {
             SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
             SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
             socket.startHandshake();
-            
+            */
+        	
             // write request to socket connection
             PrintWriter out = new PrintWriter(
                                   new BufferedWriter(
                                   new OutputStreamWriter(
                                   socket.getOutputStream())));
-            */
+            
 
             out.print(requestMethod.toString().toUpperCase()+" /"+resourcePath+" HTTP/1.1\r\n");
             out.print("Host: "+this.host+"\r\n");
@@ -112,20 +115,20 @@ public class ConnectionManager2 {
                 System.out.println(
                     "httpsRequest:  java.io.PrintWriter error");
             
-            /*
+            
             // read response
             BufferedReader in = new BufferedReader(
                                     new InputStreamReader(
                                     socket.getInputStream()));
-			*/
+			
             
             String inData;
             while ((inData = in.readLine()) != null)
                 //System.out.println(inData);
             	html.append(inData + "\n");
 
-            //in.close();
-            //out.close();
+            in.close();
+            out.close();
             //socket.close();
 
         } catch (Exception e) {
@@ -150,13 +153,14 @@ public class ConnectionManager2 {
             SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
             SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
             socket.startHandshake();
-            
+            */
+        	
             // write request to socket connection
             PrintWriter out = new PrintWriter(
                                   new BufferedWriter(
                                   new OutputStreamWriter(
                                   socket.getOutputStream())));
-			*/
+			
 			
             out.print(requestMethod.toString().toUpperCase()+" /"+resourcePath+" HTTP/1.1\r\n");
             out.print("Host: "+host+"\r\n");
@@ -168,20 +172,20 @@ public class ConnectionManager2 {
             if (out.checkError())
                 System.out.println(
                     "httpsRequest:  java.io.PrintWriter error");
-            /*
+            
             // read response
             BufferedReader in = new BufferedReader(
                                     new InputStreamReader(
                                     socket.getInputStream()));
-			*/
-            
+			
+           
             String inData;
             while ((inData = in.readLine()) != null)
                 //System.out.println(inData);
             	html.append(inData + "\n");
 
-            //in.close();
-            //out.close();
+            in.close();
+            out.close();
             //socket.close();
 
         } catch (Exception e) {

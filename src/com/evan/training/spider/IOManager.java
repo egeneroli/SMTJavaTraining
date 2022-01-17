@@ -63,7 +63,7 @@ public class IOManager {
 		StringBuilder sb = new StringBuilder();
 		try {
 			//FileReader fileIn = new FileReader(new File(filepath));
-			BufferedReader fileIn = new BufferedReader(new FileReader(this.rootDirectory+filepath));
+			BufferedReader fileIn = new BufferedReader(new FileReader(this.rootDirectory+filepath+".txt"));
 			//int c;
 			String line;
 			while ((line = fileIn.readLine()) != null) {
