@@ -103,7 +103,7 @@ public class ConnectionManager {
                                   new OutputStreamWriter(
                                   socket.getOutputStream())));
 
-            out.print(requestMethod.toString().toUpperCase()+" /"+path+" HTTP/1.1\r\n");
+            out.print(requestMethod.toString().toUpperCase()+" "+path+" HTTP/1.1\r\n");
             out.print("Host: "+host+"\r\n");
             for (String cookie: cookieList) {
             	out.print(cookie+"\r\n");
