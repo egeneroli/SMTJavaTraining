@@ -30,13 +30,15 @@ public class HttpRequestBuilder {
 	 * @param method - type of http request to be executed ie. get, post, head
 	 * @param host - host name for request
 	 */
+	/*
 	public HttpRequestBuilder(HttpRequestMethod method, String host, int port) {
-		setPort(port);
-		setMethod(method);
-		setHost(host);
+		this.port = port;
+		this.method = method;
+		this.host = host;
 		headers = new LinkedHashMap<>();
-		setHeader("Host", host);
+		headers.put("Host", host);
 	}
+	*/
 	
 	/** overloaded constructor - instantiates request builder class w/ specified host, method, path
 	 * @param method - type of http request to be executed ie. get, post, head
@@ -44,12 +46,12 @@ public class HttpRequestBuilder {
 	 * @param path - resource path to be requested ie. /about
 	 */
 	public HttpRequestBuilder(HttpRequestMethod method, String host, String path, int port) {
-		setPort(port);
-		setMethod(method);
-		setHost(host);
-		setPath(path);
+		this.port = port;
+		this.method = method;
+		this.host = host;
+		this.path = path;
 		headers = new LinkedHashMap<>();
-		setHeader("Host", host);
+		headers.put("host", host);
 	}
 	
 	/**
@@ -154,7 +156,8 @@ public class HttpRequestBuilder {
 		sb.append(method.toString().toUpperCase()+" "+path+" HTTP/1.1\r\n");
 		
 		for (var key: headers.keySet()) {
-			sb.append(key+": "+headers.get(key)+"\r\n");
+			String keyCapitalized = key.substring(0, 1).toUpperCase() + key.substring(1);
+			sb.append(keyCapitalized+": "+headers.get(key)+"\r\n");
 		}
 		
 		sb.append("\r\n");

@@ -86,7 +86,7 @@ public class Spider3 {
 		request.setPath("/admintool");
 		String adminPage = cm.httpsRequest(request);
 		io.writeTextFile(adminPage, "admintool");
-		System.out.println();
+		//System.out.println(adminPage);
 		
 		// Log-in to admintool page
 		
