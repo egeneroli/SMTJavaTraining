@@ -24,14 +24,16 @@ public class HttpRequestBuilder {
 	private HttpRequestMethod method;
 	private String host;
 	private String path = "/";
+	private int port;
 	
 	/** constructor - instantiates request builder class w/ specified host, method, path defaults to root "/"
 	 * @param method - type of http request to be executed ie. get, post, head
 	 * @param host - host name for request
 	 */
-	public HttpRequestBuilder(HttpRequestMethod method, String host) {
-		this.method = method;
-		this.host = host;
+	public HttpRequestBuilder(HttpRequestMethod method, String host, int port) {
+		setPort(port);
+		setMethod(method);
+		setHost(host);
 		headers = new LinkedHashMap<>();
 		setHeader("Host", host);
 	}
@@ -39,12 +41,13 @@ public class HttpRequestBuilder {
 	/** overloaded constructor - instantiates request builder class w/ specified host, method, path
 	 * @param method - type of http request to be executed ie. get, post, head
 	 * @param host - host name for request
-	 * @param path - resource path to be requested ie /about
+	 * @param path - resource path to be requested ie. /about
 	 */
-	public HttpRequestBuilder(HttpRequestMethod method, String host, String path) {
-		this.method = method;
-		this.host = host;
-		this.path = path;
+	public HttpRequestBuilder(HttpRequestMethod method, String host, String path, int port) {
+		setPort(port);
+		setMethod(method);
+		setHost(host);
+		setPath(path);
 		headers = new LinkedHashMap<>();
 		setHeader("Host", host);
 	}
@@ -95,6 +98,36 @@ public class HttpRequestBuilder {
 	 */
 	public String getPath() {
 		return path;
+	}
+	
+	/**
+	 * sets port number to request on
+	 * @param port - int port number
+	 */
+	public void setPort(int port) {
+		this.port = port;
+	}
+	
+	/**
+	 * returns port number (int)
+	 */
+	public int getPort() {
+		return port;
+	}
+	
+	/**
+	 * sets method of request
+	 * @param method - http request method to use ie. get, post, head
+	 */
+	public void setMethod(HttpRequestMethod method) {
+		this.method = method;
+	}
+	
+	/**
+	 * returns http request method
+	 */
+	public HttpRequestMethod getMethod() {
+		return method;
 	}
 	
 	/**

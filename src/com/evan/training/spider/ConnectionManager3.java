@@ -34,13 +34,13 @@ public class ConnectionManager3 {
 	 * @param requestMethod -- type of request to send: get, post, head
 	 * @return html String
 	 */
-	public String httpsRequest(HttpRequestBuilder request, int port) {
+	public String httpsRequest(HttpRequestBuilder request) {
 		
 		StringBuilder html = new StringBuilder();
         try {
         	// create socket connection and manually begin handshake
             SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-            SSLSocket socket = (SSLSocket) factory.createSocket(request.getHost(), port);
+            SSLSocket socket = (SSLSocket) factory.createSocket(request.getHost(), request.getPort());
             socket.startHandshake();
             
             // write request to socket connection

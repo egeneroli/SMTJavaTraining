@@ -43,8 +43,8 @@ public class Spider3 {
 	public void run() {
 		// Get siliconmtn.com homepage
 		ConnectionManager3 cm = new ConnectionManager3();
-		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "www.siliconmtn.com", "/");
-		String homePage = cm.httpsRequest(request, 443);
+		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "www.siliconmtn.com", "/", 443);
+		String homePage = cm.httpsRequest(request);
 		//System.out.println(homePage + "\n");
 		
 		// Save homepage html
@@ -71,7 +71,8 @@ public class Spider3 {
 			String link = itr.next();
 			
 			// Get page for link
-			String page = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.get, link);
+			request.setPath(link);
+			String page = cm.httpsRequest(request);
 			
 			// Save html from page, substring removes beginning "/" for filename
 			io.writeTextFile(page, link.substring(1));
@@ -82,7 +83,8 @@ public class Spider3 {
 		}
 		
 		// Get admin tool page
-		String adminPage = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.get, "/admintool");
+		request.setPath("/admintool");
+		String adminPage = cm.httpsRequest(request);
 		io.writeTextFile(adminPage, "admintool");
 		System.out.println();
 		
