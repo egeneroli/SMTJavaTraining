@@ -18,21 +18,30 @@ import com.evan.training.spider.ConnectionManager.HttpRequestMethod;
 * @since Jan 17, 2022
 * @updates:
 ****************************************************************************/
-public class httpRequestBuilder {
+public class HttpRequestBuilder {
 	private String body;
 	private LinkedHashMap<String, String> headers;
 	private HttpRequestMethod method;
 	private String host;
 	private String path = "/";
 	
-	public httpRequestBuilder(HttpRequestMethod method, String host) {
+	/** constructor - instantiates request builder class w/ specified host, method, path defaults to root "/"
+	 * @param method - type of http request to be executed ie. get, post, head
+	 * @param host - host name for request
+	 */
+	public HttpRequestBuilder(HttpRequestMethod method, String host) {
 		this.method = method;
 		this.host = host;
 		headers = new LinkedHashMap<>();
 		setHeader("Host", host);
 	}
 	
-	public httpRequestBuilder(HttpRequestMethod method, String host, String path) {
+	/** overloaded constructor - instantiates request builder class w/ specified host, method, path
+	 * @param method - type of http request to be executed ie. get, post, head
+	 * @param host - host name for request
+	 * @param path - resource path to be requested ie /about
+	 */
+	public HttpRequestBuilder(HttpRequestMethod method, String host, String path) {
 		this.method = method;
 		this.host = host;
 		this.path = path;
@@ -40,14 +49,34 @@ public class httpRequestBuilder {
 		setHeader("Host", host);
 	}
 	
+	/**
+	 * add header with specified name and value
+	 * @param name - name of header to add ie. "Connection"
+	 * @param value - value of header to add ie. "keep-alive"
+	 */
 	public void setHeader(String name, String value) {
 		headers.put(name, value);
 	}
 	
+	/**
+	 * removes header with specified name
+	 * @param name - name of header to remove ie. "Cookie", "User-Agent"
+	 */
+	public void removeHeader(String name) {
+		headers.remove(name);
+	}
+
+	/**
+	 * sets request body text
+	 * @param body - text to set as request body
+	 */
 	public void setBody(String body) {
 		this.body = body;
 	}
 	
+	/**
+	 * Overridden toString method - creates http request string
+	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
@@ -67,7 +96,7 @@ public class httpRequestBuilder {
 	}
 	
 	public static void main(String[] args) {
-		httpRequestBuilder request = new httpRequestBuilder(HttpRequestMethod.get, "www.siliconmtn.com","/about");
+		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "www.siliconmtn.com","/about");
 		request.setHeader("Connection", "keep-alive");
 		request.setBody("username and password to log in.");
 		System.out.println(request.toString());
