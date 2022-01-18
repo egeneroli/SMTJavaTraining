@@ -42,8 +42,9 @@ public class Spider3 {
 	 */
 	public void run() {
 		// Get siliconmtn.com homepage
-		ConnectionManager cm = new ConnectionManager();
-		String homePage = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.get, "/");
+		ConnectionManager3 cm = new ConnectionManager3();
+		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "www.siliconmtn.com", "/");
+		String homePage = cm.httpsRequest(request, 443);
 		//System.out.println(homePage + "\n");
 		
 		// Save homepage html

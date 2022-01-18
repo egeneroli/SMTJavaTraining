@@ -67,11 +67,49 @@ public class HttpRequestBuilder {
 	}
 
 	/**
+	 * returns header with specified name
+	 * @param name - name of header to return ie. "Cookie", "User-Agent"
+	 */
+	public String getHeader(String name) {
+		return headers.get(name);
+	}
+	
+	/**
 	 * sets request body text
 	 * @param body - text to set as request body
 	 */
 	public void setBody(String body) {
 		this.body = body;
+	}
+
+	/**
+	 * sets path
+	 * @param path - filepath of resource
+	 */
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
+	/**
+	 * returns path string
+	 */
+	public String getPath() {
+		return path;
+	}
+	
+	/**
+	 * sets host
+	 * @param host - string dns hostname
+	 */
+	public void setHost(String host) {
+		this.host = host;
+	}
+	
+	/**
+	 * returns host string
+	 */
+	public String getHost() {
+		return host;
 	}
 	
 	/**
@@ -81,7 +119,6 @@ public class HttpRequestBuilder {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(method.toString().toUpperCase()+" "+path+" HTTP/1.1\r\n");
-		//headers.put("Host", host);
 		
 		for (var key: headers.keySet()) {
 			sb.append(key+": "+headers.get(key)+"\r\n");
@@ -95,10 +132,12 @@ public class HttpRequestBuilder {
 		return sb.toString();
 	}
 	
+	/*
 	public static void main(String[] args) {
 		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "www.siliconmtn.com","/about");
 		request.setHeader("Connection", "keep-alive");
 		request.setBody("username and password to log in.");
 		System.out.println(request.toString());
 	}
+	*/
 }
