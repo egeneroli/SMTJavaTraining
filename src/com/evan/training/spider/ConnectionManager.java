@@ -88,7 +88,7 @@ public class ConnectionManager {
 	 * @param requestMethod - type of request to send: get, post, head
 	 * @return html String
 	 */
-	public String httpsRequest(String host, int port, HttpRequestMethod requestMethod, ArrayList<String> cookieList, String path) {
+	public String httpsRequest(String host, int port, HttpRequestMethod requestMethod, String path, ArrayList<String> cookieList) {
 		
 		StringBuilder html = new StringBuilder();
         try {

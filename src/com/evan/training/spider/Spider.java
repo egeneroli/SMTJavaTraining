@@ -47,7 +47,7 @@ public class Spider {
 		//System.out.println(homePage + "\n");
 		
 		// Save homepage html
-		IOManager io = new IOManager("spiderHtml/");
+		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory to read/write from
 		io.writeTextFile(homePage, "home");
 		//String homePage = io.readTextFile("homePage");
 		//System.out.println(homePage);
@@ -70,21 +70,20 @@ public class Spider {
 			String link = itr.next();
 			
 			// Get page for link
-			String pageHtml = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.get, link);
+			String page = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.get, link);
 			
-			// Save html from page
-			io.writeTextFile(pageHtml, link.substring(1));
+			// Save html from page, substring removes beginning "/" for filename
+			io.writeTextFile(page, link.substring(1));
 			
 			// Parse html, extract any more links, add to link set
-			HashSet<String> additionalLinks = parser.extractLinks(pageHtml);
+			HashSet<String> additionalLinks = parser.extractLinks(page);
 			linkSet.addAll(additionalLinks);
-		}
-
-		for (String link: linkSet) {
-			System.out.println(link);
 		}
 		
 		// Get admin tool page
+		String adminPage = cm.httpsRequest("www.siliconmtn.com", 443, HttpRequestMethod.get, "/admintool");
+		io.writeTextFile(adminPage, "admintool");
+		System.out.println();
 		
 		// Log-in to admintool page
 		
