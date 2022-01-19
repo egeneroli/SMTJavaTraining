@@ -44,12 +44,12 @@ public class Spider3 {
 		// Get siliconmtn.com homepage
 		ConnectionManager3 cm = new ConnectionManager3();
 		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
-		String homePage = cm.httpsRequest(request);
+		//String homePage = cm.httpsRequest(request);
 		//System.out.println(homePage + "\n");
 		
 		// Save homepage html
 		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel to SMTJavaTraining
-		
+		/*
 		io.writeTextFile(homePage, "home");
 		//String homePage = io.readTextFile("homePage");
 		//System.out.println(homePage);
@@ -78,31 +78,28 @@ public class Spider3 {
 			HashSet<String> additionalLinks = parser.extractLinks(page);
 			linkSet.addAll(additionalLinks);
 		}
-		
+		*/
 		// Get admin tool page
 		request.setPath("/admintool");
 		String adminPage = cm.httpsRequest(request);
 		io.writeTextFile(adminPage, "admintool");
-		System.out.println(adminPage);
-		
-		/* login post request does not work: returns 400 bad request
+		//System.out.println(adminPage);
 		
 		// Log-in to admintool page
 		request.setMethod(HttpRequestMethod.post);
 		request.setBody("emailAddress=evan.generoli@silconmtn.com&password=SMTRules~!1");
+		request.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.setHeader("content-length", request.getBody().length()+"");
 		String post = cm.httpsRequest(request);
-		System.out.println(post);
+		io.writeTextFile(post, "postResponse");
+		//System.out.println(post);
 		
 		// Get "schedule job instances" page
-		request.setPath("admintool?cPage=index&actionId=SCHEDULE_JOB_INSTANCE");
+		request.setPath("/admintool?actionId=SCHEDULE_JOB_INSTANCE");
 		request.setMethod(HttpRequestMethod.get);
-		request.setHeader("content-length", request.getBody().length()+"");
 		String scheduleJobInstances = cm.httpsRequest(request);
-		
 		// Save html from page
 		io.writeTextFile(scheduleJobInstances, "admintool.scheduleJobInstances");
-		System.out.println(scheduleJobInstances);
-		
-		*/
+		//System.out.println(scheduleJobInstances);
 	}
 }

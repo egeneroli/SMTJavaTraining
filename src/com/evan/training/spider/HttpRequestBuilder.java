@@ -168,10 +168,9 @@ public class HttpRequestBuilder {
 		}
 		
 		sb.append("\r\n");
-		
-		if (body != null) {
-			sb.append(body+"\r\n");
-		}
+	
+		sb.append(body);
+
 		return sb.toString();
 	}
 	
