@@ -81,64 +81,7 @@ public class ConnectionManager3 {
         }
         return html.toString();
 	}
-	
-	
-	
-	/**
-	 * overloaded - sends https request to specified host and port, passes cookies from cookieList w/ request
-	 * @param host - String domain name of requested server
-	 * @param port - int port number to connect to
-	 * @param requestMethod - type of request to send: get, post, head
-	 * @return html String
-	 */
-	public String httpsRequest(String host, int port, HttpRequestMethod requestMethod, String path, ArrayList<String> cookieList) {
 		
-		StringBuilder html = new StringBuilder();
-        try {
-        	// create socket connection and manually begin handshake
-            SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-            SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
-            socket.startHandshake();
-            
-            // write request to socket connection
-            PrintWriter out = new PrintWriter(
-                                  new BufferedWriter(
-                                  new OutputStreamWriter(
-                                  socket.getOutputStream())));
-
-            out.print(requestMethod.toString().toUpperCase()+" "+path+" HTTP/1.1\r\n");
-            out.print("Host: "+host+"\r\n");
-            for (String cookie: cookieList) {
-            	out.print(cookie+"\r\n");
-            }
-            out.print("\r\n");
-            out.flush();
-
-            // make sure there were no surprises
-            if (out.checkError())
-                System.out.println(
-                    "httpsRequest:  java.io.PrintWriter error");
-
-            // read response
-            BufferedReader in = new BufferedReader(
-                                    new InputStreamReader(
-                                    socket.getInputStream()));
-
-            String inData;
-            while ((inData = in.readLine()) != null)
-                //System.out.println(inData);
-            	html.append(inData + "\n");
-
-            in.close();
-            out.close();
-            socket.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return html.toString();
-	}
-	
 	public ArrayList<String> extractCookies(String html) {
 		// create ArrayList to store cookies in
 		ArrayList<String> cookieList = new ArrayList<>();

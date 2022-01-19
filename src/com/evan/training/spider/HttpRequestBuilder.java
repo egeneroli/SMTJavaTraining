@@ -19,7 +19,7 @@ import com.evan.training.spider.ConnectionManager.HttpRequestMethod;
 * @updates:
 ****************************************************************************/
 public class HttpRequestBuilder {
-	private String body;
+	private String body = "";
 	private LinkedHashMap<String, String> headers;
 	private HttpRequestMethod method;
 	private String host;
@@ -51,7 +51,7 @@ public class HttpRequestBuilder {
 		this.host = host;
 		this.path = path;
 		headers = new LinkedHashMap<>();
-		headers.put("host", host);
+		headers.put("Host", host);
 	}
 	
 	/**
@@ -87,6 +87,13 @@ public class HttpRequestBuilder {
 		this.body = body;
 	}
 
+	/**
+	 * returns request body text
+	 */
+	public String getBody() {
+		return body;
+	}
+	
 	/**
 	 * sets path
 	 * @param path - filepath of resource
@@ -138,6 +145,7 @@ public class HttpRequestBuilder {
 	 */
 	public void setHost(String host) {
 		this.host = host;
+		headers.put("Host", host);
 	}
 	
 	/**
@@ -156,8 +164,7 @@ public class HttpRequestBuilder {
 		sb.append(method.toString().toUpperCase()+" "+path+" HTTP/1.1\r\n");
 		
 		for (var key: headers.keySet()) {
-			String keyCapitalized = key.substring(0, 1).toUpperCase() + key.substring(1);
-			sb.append(keyCapitalized+": "+headers.get(key)+"\r\n");
+			sb.append(key+": "+headers.get(key)+"\r\n");
 		}
 		
 		sb.append("\r\n");
