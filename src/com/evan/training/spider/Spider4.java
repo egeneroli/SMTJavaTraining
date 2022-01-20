@@ -5,10 +5,8 @@ package com.evan.training.spider;
 
 import java.util.HashSet;
 import java.util.Iterator;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import com.evan.training.spider.ConnectionManager.HttpRequestMethod;
 
@@ -44,10 +42,10 @@ public class Spider4 {
 		// Get siliconmtn.com homepage
 		ConnectionManager3 cm = new ConnectionManager3();
 		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
-		String homePage = cm.httpsRequest(request);
+		//String homePage = cm.httpsRequest(request);
 		//System.out.println(homePage + "\n");
 		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel. to SMTJavaTraining
-		io.writeTextFile(homePage, "home");			// Save homepage html
+		//io.writeTextFile(homePage, "home");			// Save homepage html
 		
 		//String homePage = io.readTextFile("homePage");
 		//System.out.println(homePage);
@@ -57,29 +55,44 @@ public class Spider4 {
 	
 		// Parse homepage html, extract links from homepage html, store in set
 		HtmlParser parser = new HtmlParser();
-		HashSet<String> linkSet = parser.extractLinks(homePage);
+		//HashSet<String> linkSet = parser.extractLinks(homePage);
 		//HashSet<String> linkSet = new HashSet<>();
 		//linkSet.add("/");
+		Queue<String> linkQueue = new LinkedList<>();
+		linkQueue.add("/");
 		
 		// Repeat while more links
-		Iterator<String> itr = linkSet.iterator();
-		while (itr.hasNext()) {
+		//Iterator<String> itr = linkSet.iterator();
+		//while (itr.hasNext()) {
+		while (!linkQueue.isEmpty()) {	
 			// get next link from linkSet iterator
-			String link = itr.next();
+			//String link = itr.next();
+			String link = linkQueue.poll();
 			
 			// Get page for link
 			request.setPath(link);
 			String page = cm.httpsRequest(request);
 			
 			// Save html from page, substring removes beginning "/" for filename
-			io.writeTextFile(page, link.substring(1)+"Page");
+			//io.writeTextFile(page, link.substring(1)+"Page");
+			if (link.equals("/")) {
+				io.writeTextFile(page, "home");
+			} else {
+				io.writeTextFile(page, link.substring(1));
+			}
 			
 			// Parse html, extract any more links, add to link set
+			//HashSet<String> additionalLinks = parser.extractLinks(page);
+			//linkSet.addAll(additionalLinks);
 			HashSet<String> additionalLinks = parser.extractLinks(page);
-			linkSet.addAll(additionalLinks);
+			for (String path: additionalLinks) {
+				if (!linkQueue.contains(path)) {
+					linkQueue.add(path);
+				}
+			}
 		}
 		
-		
+		/*
 		// Get admin tool page
 		request.setPath("/admintool");
 		String adminPage = cm.httpsRequest(request);
@@ -96,7 +109,7 @@ public class Spider4 {
 		//System.out.println(post);
 		
 		//getting 302 moved response (to /admintool) - likely due to no cookies in request after login
-		/*
+		
 		// Get "schedule job instances" page
 		request.setPath("/admintool?actionId=SCHEDULE_JOB_INSTANCE");
 		request.setMethod(HttpRequestMethod.get);
