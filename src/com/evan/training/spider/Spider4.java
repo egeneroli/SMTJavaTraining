@@ -3,6 +3,7 @@
  */
 package com.evan.training.spider;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -57,21 +58,28 @@ public class Spider4 {
 		HtmlParser parser = new HtmlParser();
 		//HashSet<String> linkSet = parser.extractLinks(homePage);
 		//HashSet<String> linkSet = new HashSet<>();
+		//HashSet<String> visited = new HashSet<>();
 		//linkSet.add("/");
-		Queue<String> linkQueue = new LinkedList<>();
-		linkQueue.add("/");
+		//Queue<String> linkQueue = new LinkedList<>();
+		//linkQueue.add("/");
+		ArrayList<String> links = new ArrayList<>();
+		links.add("/");
+		
 		
 		// Repeat while more links
 		//Iterator<String> itr = linkSet.iterator();
 		//while (itr.hasNext()) {
-		while (!linkQueue.isEmpty()) {	
+		//while (!linkQueue.isEmpty()) {
+		for (int i=0; i<links.size(); i++) {
 			// get next link from linkSet iterator
 			//String link = itr.next();
-			String link = linkQueue.poll();
+			//String link = linkQueue.poll();
+			String link = links.get(i);
 			
 			// Get page for link
 			request.setPath(link);
 			String page = cm.httpsRequest(request);
+			//visited.add(link);
 			
 			// Save html from page, substring removes beginning "/" for filename
 			//io.writeTextFile(page, link.substring(1)+"Page");
@@ -86,8 +94,8 @@ public class Spider4 {
 			//linkSet.addAll(additionalLinks);
 			HashSet<String> additionalLinks = parser.extractLinks(page);
 			for (String path: additionalLinks) {
-				if (!linkQueue.contains(path)) {
-					linkQueue.add(path);
+				if (!links.contains(path)) {
+					links.add(path);
 				}
 			}
 		}

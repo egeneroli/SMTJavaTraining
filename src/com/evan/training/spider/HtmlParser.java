@@ -30,7 +30,7 @@ public class HtmlParser {
 		HashSet<String> linkSet = new HashSet<>();
 		Elements links = doc.select("a");
 		for (var e: links) {
-			var link = e.attr("href");
+			String link = e.attr("href");
 			if (link.startsWith("/") && !link.equals("/")) {
 				linkSet.add(link);
 				//System.out.println(link);
