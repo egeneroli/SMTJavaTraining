@@ -28,7 +28,7 @@ public class Spider4 {
 		// cookies? -- or make member variable in ConnectionManager
 	
 	/**
-	 * initializes program, instantiates Spider class and calls workflow method 
+	 * initializes program, instantiates Spider class and calls run (workflow) method 
 	 * @param args - command line arguments, none necessary
 	 */
 	public static void main(String[] args) {
@@ -62,9 +62,10 @@ public class Spider4 {
 		//linkSet.add("/");
 		//Queue<String> linkQueue = new LinkedList<>();
 		//linkQueue.add("/");
+		
+		
 		ArrayList<String> links = new ArrayList<>();
 		links.add("/");
-		
 		
 		// Repeat while more links
 		//Iterator<String> itr = linkSet.iterator();
@@ -100,31 +101,42 @@ public class Spider4 {
 			}
 		}
 		
-		/*
+		
 		// Get admin tool page
 		request.setPath("/admintool");
-		String adminPage = cm.httpsRequest(request);
-		io.writeTextFile(adminPage, "admintool");
+		//String adminPage = cm.httpsRequest(request);
+		//io.writeTextFile(adminPage, "admintool");
 		//System.out.println(adminPage);
 		
 		// Log-in to admintool page
 		request.setMethod(HttpRequestMethod.post);
 		request.setBody("emailAddress=evan.generoli@silconmtn.com&password=SMTRules~!1");
 		request.setHeader("Content-Type", "application/x-www-form-urlencoded");
-		request.setHeader("content-length", request.getBody().length()+"");
+		request.setHeader("Content-Length", request.getBody().length()+"");
 		String post = cm.httpsRequest(request);
 		io.writeTextFile(post, "postResponse");
 		//System.out.println(post);
 		
-		//getting 302 moved response (to /admintool) - likely due to no cookies in request after login
-		
+		//getting 302 moved response (to /admintool) - likely due to no cookies in get request after login
 		// Get "schedule job instances" page
+		ArrayList<String> cookies = cm.extractCookies(post);
+		//String cookieHeaderString = String.join("; ", cookies);
+		//System.out.println(cookieHeaderString+" ");
+		request.setHeader("Cookie", String.join("; ", cookies));
+		request.removeHeader("Content-Type");
+		request.removeHeader("Content-Length");
+		request.setBody("");
 		request.setPath("/admintool?actionId=SCHEDULE_JOB_INSTANCE");
 		request.setMethod(HttpRequestMethod.get);
+		request.setHeader("Connection", "keep-alive");
+		request.setHeader("Accept-Language","en-us");
+		request.setHeader("Content-Type", "text/html;charset=UTF-8");
+		request.setHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0");
+		request.setHeader("Accept-Encoding", "gzip, deflate, br");
 		String scheduleJobInstances = cm.httpsRequest(request);
 		// Save html from page
 		io.writeTextFile(scheduleJobInstances, "admintoolScheduleJobInstances");
 		//System.out.println(scheduleJobInstances);
-		*/
+		
 	}
 }

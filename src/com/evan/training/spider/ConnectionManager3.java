@@ -89,7 +89,7 @@ public class ConnectionManager3 {
 		// read each line of html, if line begins w/ "Set-Cookie": add cookie to list
 		for (String line: html.split("\n")) {
 			if (line.startsWith("Set-Cookie")) {
-				String[] lst = line.split(" ");
+				String[] lst = line.split("[ ;]");
 				//for (int i=0; i < lst.length; i++) {
 				//	System.out.println(i + ": " + lst[i]);
 				//}
