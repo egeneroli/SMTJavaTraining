@@ -133,7 +133,6 @@ public class Spider4 {
 		request.setHeader("Cache-Control", "max-age=0");
 		request.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8");
 		request.setHeader("Referer", "https://smt-stage.qa.siliconmtn.com/sb/admintool");
-		request.setHeader("Cookie", "smt.admin.loginComplete=1");
 		String scheduleJobInstances = cm.httpsRequest(request);
 		// Save html from page
 		io.writeTextFile(scheduleJobInstances, "admintoolScheduleJobInstances");
