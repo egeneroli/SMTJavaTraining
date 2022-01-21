@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
@@ -102,5 +103,37 @@ public class ConnectionManager3 {
 
 		return cookieList;
 	}
+	
+	/*
+	/**
+	 * parses cookies from http headers
+	 * @param html - string html w/ http headers
+	 * @return hashmap of "cookiename"="cookievalue" (strings)
+	 */
+	/*
+	public HashMap<String,String> extractCookies(String html) {
+		// create ArrayList to store cookies in
+		HashMap<String,String> cookieMap = new HashMap<>();
+		
+		// read each line of html, if line begins w/ "Set-Cookie": add cookie to list
+		for (String line: html.split("\n")) {
+			if (line.startsWith("Set-Cookie")) {
+				String[] lst = line.split(" ");
+				//for (int i=0; i < lst.length; i++) {
+				//	System.out.println(i + ": " + lst[i]);
+				//}
+				//System.out.println();
+				String cookieString = lst[1];
+				String[] lst2 = cookieString.split("=");
+				String cookieName = lst2[0];
+				String cookieValue = lst2[1];
+				cookieMap.put(cookieName, cookieValue);
+				//cookieList.add(cookieString);
+				//System.out.println(cookieString);
+			}
+		}
 
+		return cookieMap;
+	}
+	*/
 }

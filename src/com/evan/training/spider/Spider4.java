@@ -82,13 +82,18 @@ public class Spider4 {
 			String page = cm.httpsRequest(request);
 			//visited.add(link);
 			
+			
 			// Save html from page, substring removes beginning "/" for filename
 			//io.writeTextFile(page, link.substring(1)+"Page");
+			io.writeTextFile(page, link.equals("/")?"home":link.substring(1));
+			
+			/*
 			if (link.equals("/")) {
 				io.writeTextFile(page, "home");
 			} else {
 				io.writeTextFile(page, link.substring(1));
 			}
+			*/
 			
 			// Parse html, extract any more links, add to link set
 			//HashSet<String> additionalLinks = parser.extractLinks(page);
@@ -101,7 +106,7 @@ public class Spider4 {
 			}
 		}
 		
-		
+		/*
 		// Get admin tool page
 		request.setPath("/admintool");
 		//String adminPage = cm.httpsRequest(request);
@@ -137,6 +142,6 @@ public class Spider4 {
 		// Save html from page
 		io.writeTextFile(scheduleJobInstances, "admintoolScheduleJobInstances");
 		//System.out.println(scheduleJobInstances);
-		
+		*/
 	}
 }

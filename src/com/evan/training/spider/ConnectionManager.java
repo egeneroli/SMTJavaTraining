@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
@@ -136,6 +137,11 @@ public class ConnectionManager {
         return html.toString();
 	}
 	
+	/**
+	 * parses cookies from http headers
+	 * @param html - string html w/ http headers
+	 * @return arraylist of "cookiename=cookievalue" strings
+	 */
 	public ArrayList<String> extractCookies(String html) {
 		// create ArrayList to store cookies in
 		ArrayList<String> cookieList = new ArrayList<>();
@@ -156,5 +162,4 @@ public class ConnectionManager {
 
 		return cookieList;
 	}
-
 }
