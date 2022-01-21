@@ -82,18 +82,9 @@ public class Spider4 {
 			String page = cm.httpsRequest(request);
 			//visited.add(link);
 			
-			
 			// Save html from page, substring removes beginning "/" for filename
 			//io.writeTextFile(page, link.substring(1)+"Page");
 			io.writeTextFile(page, link.equals("/")?"home":link.substring(1));
-			
-			/*
-			if (link.equals("/")) {
-				io.writeTextFile(page, "home");
-			} else {
-				io.writeTextFile(page, link.substring(1));
-			}
-			*/
 			
 			// Parse html, extract any more links, add to link set
 			//HashSet<String> additionalLinks = parser.extractLinks(page);
@@ -106,7 +97,7 @@ public class Spider4 {
 			}
 		}
 		
-		/*
+		
 		// Get admin tool page
 		request.setPath("/admintool");
 		//String adminPage = cm.httpsRequest(request);
@@ -125,6 +116,7 @@ public class Spider4 {
 		//getting 302 moved response (to /admintool) - likely due to no cookies in get request after login
 		// Get "schedule job instances" page
 		ArrayList<String> cookies = cm.extractCookies(post);
+		cookies.add("smt.admin.loginComplete=1");
 		//String cookieHeaderString = String.join("; ", cookies);
 		//System.out.println(cookieHeaderString+" ");
 		request.setHeader("Cookie", String.join("; ", cookies));
@@ -134,14 +126,18 @@ public class Spider4 {
 		request.setPath("/admintool?actionId=SCHEDULE_JOB_INSTANCE");
 		request.setMethod(HttpRequestMethod.get);
 		request.setHeader("Connection", "keep-alive");
-		request.setHeader("Accept-Language","en-us");
+		request.setHeader("Accept-Language","en-US,en;q=0.5");
 		request.setHeader("Content-Type", "text/html;charset=UTF-8");
 		request.setHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0");
 		request.setHeader("Accept-Encoding", "gzip, deflate, br");
+		request.setHeader("Cache-Control", "max-age=0");
+		request.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8");
+		request.setHeader("Referer", "https://smt-stage.qa.siliconmtn.com/sb/admintool");
+		request.setHeader("Cookie", "smt.admin.loginComplete=1");
 		String scheduleJobInstances = cm.httpsRequest(request);
 		// Save html from page
 		io.writeTextFile(scheduleJobInstances, "admintoolScheduleJobInstances");
 		//System.out.println(scheduleJobInstances);
-		*/
+		
 	}
 }
