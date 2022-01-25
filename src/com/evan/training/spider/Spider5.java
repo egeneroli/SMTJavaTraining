@@ -23,7 +23,7 @@ import com.evan.training.spider.ConnectionManager.HttpRequestMethod;
 * @since Jan 11, 2022
 * @updates:
 ****************************************************************************/
-public class Spider4 {
+public class Spider5 {
 	// member variables?
 		// cookies? -- or make member variable in ConnectionManager
 	
@@ -32,7 +32,7 @@ public class Spider4 {
 	 * @param args - command line arguments, none necessary
 	 */
 	public static void main(String[] args) {
-		Spider4 s = new Spider4();
+		Spider5 s = new Spider5();
 		s.run();
 	}
 	
@@ -40,83 +40,85 @@ public class Spider4 {
 	 * workflow method - lays out primary program logic, calls other classes/methods
 	 */
 	public void run() {
-		// Get siliconmtn.com homepage
+
+		getHomePageAndAllLinkedPages();
+		
+		getAdminToolPage();
+		
+		String postResponse = postAdminToolLogin();
+		
+		getScheduleJobInstancesPage(postResponse);
+	
+	}
+	
+	public void getHomePageAndAllLinkedPages() {
+		
 		ConnectionManager3 cm = new ConnectionManager3();
 		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
-		//String homePage = cm.httpsRequest(request);
-		//System.out.println(homePage + "\n");
-		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory relative to SMTJavaTraining
-		//io.writeTextFile(homePage, "home");			// Save homepage html
-		
-		//String homePage = io.readTextFile("homePage");
-		//System.out.println(homePage);
-		
+		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel. to SMTJavaTraining
 		// Extract and store cookies
 		//ArrayList<String> cookieList = cm.extractCookies(homePage);
 	
-		// Parse homepage html, extract links from homepage html, store in set
+		// Set up for loop, start with root directory "/" in list, more will be added from parsing homepage
 		HtmlParser parser = new HtmlParser();
-		//HashSet<String> linkSet = parser.extractLinks(homePage);
-		//HashSet<String> linkSet = new HashSet<>();
-		//HashSet<String> visited = new HashSet<>();
-		//linkSet.add("/");
-		//Queue<String> linkQueue = new LinkedList<>();
-		//linkQueue.add("/");
-		
-		
 		ArrayList<String> links = new ArrayList<>();
 		links.add("/");
 		
 		// Repeat while more links
-		//Iterator<String> itr = linkSet.iterator();
-		//while (itr.hasNext()) {
-		//while (!linkQueue.isEmpty()) {
-		for (int i = 0; i < links.size(); i++) {
-			// get next link from linkSet iterator
-			//String link = itr.next();
-			//String link = linkQueue.poll();
-			String link = links.get(i);
-			
+		for (int i=0; i<links.size(); i++) {
 			// Get page for link
+			String link = links.get(i);
 			request.setPath(link);
 			String page = cm.httpsRequest(request);
-			//visited.add(link);
-			
-			// Save html from page, substring removes beginning "/" for filename, name "/" home
-			//io.writeTextFile(page, link.substring(1)+"Page");
+
+			// Save html from page, substring removes beginning "/" for filename
 			io.writeTextFile(page, link.equals("/")?"home":link.substring(1));
 			
-			// Parse html, extract any more links, add to link list if not already present
-			//HashSet<String> additionalLinks = parser.extractLinks(page);
-			//linkSet.addAll(additionalLinks);
-			HashSet<String> additionalLinks = parser.extractLinks(page);
-			for (String path: additionalLinks) {
+			// Get any links present in page, add to link list if not already there
+			for (String path: parser.extractLinks(page)) {
 				if (!links.contains(path)) links.add(path);
 			}
 		}
-		
+	}
+
+	public void getAdminToolPage() {
+		ConnectionManager3 cm = new ConnectionManager3();
+		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
+		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel. to SMTJavaTraining
 		
 		// Get admin tool page
 		request.setPath("/admintool");
-		//String adminPage = cm.httpsRequest(request);
-		//io.writeTextFile(adminPage, "admintool");
-		//System.out.println(adminPage);
+		String adminPage = cm.httpsRequest(request);
+		io.writeTextFile(adminPage, "admintool");
+	}
+	
+	public String postAdminToolLogin() {
+		ConnectionManager3 cm = new ConnectionManager3();
+		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
+		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel. to SMTJavaTraining
 		
 		// Log-in to admintool page
 		request.setMethod(HttpRequestMethod.post);
+		request.setPath("/admintool");
 		request.setBody("emailAddress=evan.generoli@silconmtn.com&password=SMTRules~!1");
 		request.setHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.setHeader("Content-Length", request.getBody().length()+"");
 		String post = cm.httpsRequest(request);
 		io.writeTextFile(post, "postResponse");
-		//System.out.println(post);
 		
-		//getting 302 moved response (to /admintool) - likely due to no cookies in get request after login
+		return post;
+	}
+	
+	public void getScheduleJobInstancesPage(String loginPostResponse) {
+		ConnectionManager3 cm = new ConnectionManager3();
+		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
+		//String homePage = cm.httpsRequest(request);
+		//System.out.println(homePage + "\n");
+		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel. to SMTJavaTraining
+		
 		// Get "schedule job instances" page
-		ArrayList<String> cookies = cm.extractCookies(post);
+		ArrayList<String> cookies = cm.extractCookies(loginPostResponse);
 		cookies.add("smt.admin.loginComplete=1");
-		//String cookieHeaderString = String.join("; ", cookies);
-		//System.out.println(cookieHeaderString+" ");
 		request.setHeader("Cookie", String.join("; ", cookies));
 		request.removeHeader("Content-Type");
 		request.removeHeader("Content-Length");
@@ -134,7 +136,5 @@ public class Spider4 {
 		String scheduleJobInstances = cm.httpsRequest(request);
 		// Save html from page
 		io.writeTextFile(scheduleJobInstances, "admintoolScheduleJobInstances");
-		//System.out.println(scheduleJobInstances);
-		
 	}
 }
