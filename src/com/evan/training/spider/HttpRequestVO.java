@@ -18,7 +18,7 @@ import com.evan.training.spider.ConnectionManager.HttpRequestMethod;
 * @since Jan 17, 2022
 * @updates:
 ****************************************************************************/
-public class HttpRequestBuilder {
+public class HttpRequestVO {
 	private String body = "";
 	private LinkedHashMap<String, String> headers;
 	private HttpRequestMethod method;
@@ -26,7 +26,7 @@ public class HttpRequestBuilder {
 	private String path = "/";
 	private int port;
 	
-	/** constructor - instantiates request builder class w/ specified host, method, path defaults to root "/"
+	/** constructor - instantiates request value object class w/ specified host, method, path defaults to root "/"
 	 * @param method - type of http request to be executed ie. get, post, head
 	 * @param host - host name for request
 	 */
@@ -45,7 +45,7 @@ public class HttpRequestBuilder {
 	 * @param host - host name for request
 	 * @param path - resource path to be requested ie. /about
 	 */
-	public HttpRequestBuilder(HttpRequestMethod method, String host, String path, int port) {
+	public HttpRequestVO(HttpRequestMethod method, String host, String path, int port) {
 		this.port = port;
 		this.method = method;
 		this.host = host;

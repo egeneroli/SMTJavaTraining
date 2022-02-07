@@ -21,21 +21,21 @@ import java.io.FileWriter;
 ****************************************************************************/
 public class IOManager {
 
-	String rootDirectory;
+	String directory;
 	
 	/**
 	 * constructor
-	 * @param rootDirectory - filepath of root directory, absolute or relative to /eclipse-workspace/SMTJavaTraining/
+	 * @param directory - filepath of root directory, absolute or relative to /eclipse-workspace/SMTJavaTraining/
 	 */
-	public IOManager(String rootDirectory) {
-		this.rootDirectory = rootDirectory;
+	public IOManager(String directory) {
+		this.directory = directory;
 	}
 	
 	/**
 	 * overloaded constructor - allows IOManager to be created without constructor arguments - will use base directory of /eclipse-workspace/SMTJavaTraining/
 	 */
 	public IOManager() {
-		this.rootDirectory = "";
+		this.directory = "";
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class IOManager {
 	public void writeTextFile(String text, String filepath) {
 		try {
 			//FileWriter fileOut = new FileWriter(new File(filepath));
-			BufferedWriter fileOut = new BufferedWriter(new FileWriter(this.rootDirectory+filepath+".txt"));
+			BufferedWriter fileOut = new BufferedWriter(new FileWriter(this.directory+filepath+".txt"));
 			fileOut.write(text);
 			fileOut.close();
 		} catch (Exception e) {
@@ -63,7 +63,7 @@ public class IOManager {
 		StringBuilder sb = new StringBuilder();
 		try {
 			//FileReader fileIn = new FileReader(new File(filepath));
-			BufferedReader fileIn = new BufferedReader(new FileReader(this.rootDirectory+filepath+".txt"));
+			BufferedReader fileIn = new BufferedReader(new FileReader(this.directory+filepath+".txt"));
 			//int c;
 			String line;
 			while ((line = fileIn.readLine()) != null) {

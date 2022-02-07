@@ -35,7 +35,7 @@ public class ConnectionManager3 {
 	 * @param requestMethod -- type of request to send: get, post, head
 	 * @return html String
 	 */
-	public String httpsRequest(HttpRequestBuilder request) {
+	public String httpsRequest(HttpRequestVO request) {
 		
 		StringBuilder html = new StringBuilder();
         try {
