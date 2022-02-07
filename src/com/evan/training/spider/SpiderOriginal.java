@@ -23,7 +23,7 @@ import com.evan.training.spider.ConnectionManager.HttpRequestMethod;
 * @since Jan 11, 2022
 * @updates:
 ****************************************************************************/
-public class Spider4 {
+public class SpiderOriginal {
 	// member variables?
 		// cookies? -- or make member variable in ConnectionManager
 	
@@ -32,7 +32,7 @@ public class Spider4 {
 	 * @param args - command line arguments, none necessary
 	 */
 	public static void main(String[] args) {
-		Spider4 s = new Spider4();
+		SpiderOriginal s = new SpiderOriginal();
 		s.run();
 	}
 	
@@ -41,7 +41,7 @@ public class Spider4 {
 	 */
 	public void run() {
 		// Get siliconmtn.com homepage
-		ConnectionManager3 cm = new ConnectionManager3();
+		ConnectionManager cm = new ConnectionManager();
 		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
 		//String homePage = cm.httpsRequest(request);
 		//System.out.println(homePage + "\n");

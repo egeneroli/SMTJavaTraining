@@ -35,13 +35,13 @@ public class ConnectionManager {
 	 * @param requestMethod -- type of request to send: get, post, head
 	 * @return html String
 	 */
-	public String httpsRequest(String host, int port, HttpRequestMethod requestMethod, String path) {
+	public String httpsRequest(HttpRequestVO request) {
 		
 		StringBuilder html = new StringBuilder();
         try {
         	// create socket connection and manually begin handshake
             SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-            SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
+            SSLSocket socket = (SSLSocket) factory.createSocket(request.getHost(), request.getPort());
             socket.startHandshake();
             
             // write request to socket connection
@@ -49,10 +49,13 @@ public class ConnectionManager {
                                   new BufferedWriter(
                                   new OutputStreamWriter(
                                   socket.getOutputStream())));
-
+            
+            /*
             out.print(requestMethod.toString().toUpperCase()+" "+path+" HTTP/1.1\r\n");
             out.print("Host: "+host+"\r\n");
             out.print("\r\n");
+            */
+            out.print(request.toString());
             out.flush();
 
             // make sure there were no surprises
@@ -79,69 +82,7 @@ public class ConnectionManager {
         }
         return html.toString();
 	}
-	
-	
-	
-	/**
-	 * overloaded - sends https request to specified host and port, passes cookies from cookieList w/ request
-	 * @param host - String domain name of requested server
-	 * @param port - int port number to connect to
-	 * @param requestMethod - type of request to send: get, post, head
-	 * @return html String
-	 */
-	public String httpsRequest(String host, int port, HttpRequestMethod requestMethod, String path, ArrayList<String> cookieList) {
 		
-		StringBuilder html = new StringBuilder();
-        try {
-        	// create socket connection and manually begin handshake
-            SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-            SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
-            socket.startHandshake();
-            
-            // write request to socket connection
-            PrintWriter out = new PrintWriter(
-                                  new BufferedWriter(
-                                  new OutputStreamWriter(
-                                  socket.getOutputStream())));
-
-            out.print(requestMethod.toString().toUpperCase()+" "+path+" HTTP/1.1\r\n");
-            out.print("Host: "+host+"\r\n");
-            for (String cookie: cookieList) {
-            	out.print(cookie+"\r\n");
-            }
-            out.print("\r\n");
-            out.flush();
-
-            // make sure there were no surprises
-            if (out.checkError())
-                System.out.println(
-                    "httpsRequest:  java.io.PrintWriter error");
-
-            // read response
-            BufferedReader in = new BufferedReader(
-                                    new InputStreamReader(
-                                    socket.getInputStream()));
-
-            String inData;
-            while ((inData = in.readLine()) != null)
-                //System.out.println(inData);
-            	html.append(inData + "\n");
-
-            in.close();
-            out.close();
-            socket.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return html.toString();
-	}
-	
-	/**
-	 * parses cookies from http headers
-	 * @param html - string html w/ http headers
-	 * @return arraylist of "cookiename=cookievalue" strings
-	 */
 	public ArrayList<String> extractCookies(String html) {
 		// create ArrayList to store cookies in
 		ArrayList<String> cookieList = new ArrayList<>();
@@ -149,7 +90,7 @@ public class ConnectionManager {
 		// read each line of html, if line begins w/ "Set-Cookie": add cookie to list
 		for (String line: html.split("\n")) {
 			if (line.startsWith("Set-Cookie")) {
-				String[] lst = line.split(" ");
+				String[] lst = line.split("[ ;]");
 				//for (int i=0; i < lst.length; i++) {
 				//	System.out.println(i + ": " + lst[i]);
 				//}
@@ -162,4 +103,37 @@ public class ConnectionManager {
 
 		return cookieList;
 	}
+	
+	/*
+	/**
+	 * parses cookies from http headers
+	 * @param html - string html w/ http headers
+	 * @return hashmap of "cookiename"="cookievalue" (strings)
+	 */
+	/*
+	public HashMap<String,String> extractCookies(String html) {
+		// create ArrayList to store cookies in
+		HashMap<String,String> cookieMap = new HashMap<>();
+		
+		// read each line of html, if line begins w/ "Set-Cookie": add cookie to list
+		for (String line: html.split("\n")) {
+			if (line.startsWith("Set-Cookie")) {
+				String[] lst = line.split(" ");
+				//for (int i=0; i < lst.length; i++) {
+				//	System.out.println(i + ": " + lst[i]);
+				//}
+				//System.out.println();
+				String cookieString = lst[1];
+				String[] lst2 = cookieString.split("=");
+				String cookieName = lst2[0];
+				String cookieValue = lst2[1];
+				cookieMap.put(cookieName, cookieValue);
+				//cookieList.add(cookieString);
+				//System.out.println(cookieString);
+			}
+		}
+
+		return cookieMap;
+	}
+	*/
 }
