@@ -26,7 +26,20 @@ import javax.net.ssl.SSLSocketFactory;
 * @updates:
 ****************************************************************************/
 public class ConnectionManager {
+	// create enum for http request methods
 	enum HttpRequestMethod{get, post, head};
+	
+	private String host;
+	private int port;
+	
+	/** constructor - instantiates connection manager class, sets specified host and port number
+	 * @param host - host name for request
+	 * @param port - port number to request on
+	 */
+	public ConnectionManager(String host, int port) {
+		this.host = host;
+		this.port = port;
+	}
 	
 	/**
 	 * sends https request to specified host and port
@@ -41,7 +54,7 @@ public class ConnectionManager {
         try {
         	// create socket connection and manually begin handshake
             SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-            SSLSocket socket = (SSLSocket) factory.createSocket(request.getHost(), request.getPort());
+            SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
             socket.startHandshake();
             
             // write request to socket connection
@@ -136,4 +149,35 @@ public class ConnectionManager {
 		return cookieMap;
 	}
 	*/
+	
+	
+	/**
+	 * sets host
+	 * @param host - string dns hostname
+	 */
+	public void setHost(String host) {
+		this.host = host;
+	}
+	
+	/**
+	 * returns host string
+	 */
+	public String getHost() {
+		return host;
+	}
+	
+	/**
+	 * sets port number to request on
+	 * @param port - int port number
+	 */
+	public void setPort(int port) {
+		this.port = port;
+	}
+	
+	/**
+	 * returns port number (int)
+	 */
+	public int getPort() {
+		return port;
+	}
 }

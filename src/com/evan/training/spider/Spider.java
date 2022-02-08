@@ -53,8 +53,8 @@ public class Spider {
 
 	public void getHomePageAndAllLinkedPages() {
 		
-		ConnectionManager cm = new ConnectionManager();
-		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
+		ConnectionManager cm = new ConnectionManager("smt-stage.qa.siliconmtn.com", 443);
+		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, cm.getHost(), "/");
 		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel. to SMTJavaTraining
 		// Extract and store cookies
 		//ArrayList<String> cookieList = cm.extractCookies(homePage);
@@ -82,8 +82,8 @@ public class Spider {
 	}
 
 	public void getAdminToolPage() {
-		ConnectionManager cm = new ConnectionManager();
-		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
+		ConnectionManager cm = new ConnectionManager("smt-stage.qa.siliconmtn.com", 443);
+		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, cm.getHost(), "/");
 		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel. to SMTJavaTraining
 		
 		// Get admin tool page
@@ -93,8 +93,8 @@ public class Spider {
 	}
 	
 	public String postAdminToolLogin() {
-		ConnectionManager cm = new ConnectionManager();
-		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
+		ConnectionManager cm = new ConnectionManager("smt-stage.qa.siliconmtn.com", 443);
+		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.post, cm.getHost(), "/");
 		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel. to SMTJavaTraining
 		
 		// Log-in to admintool page
@@ -110,8 +110,8 @@ public class Spider {
 	}
 	
 	public void getScheduleJobInstancesPage(String loginPostResponse) {
-		ConnectionManager cm = new ConnectionManager();
-		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
+		ConnectionManager cm = new ConnectionManager("smt-stage.qa.siliconmtn.com", 443);
+		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, cm.getHost(), "/");
 		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory rel. to SMTJavaTraining
 		
 		// Get "schedule job instances" page

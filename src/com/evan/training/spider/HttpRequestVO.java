@@ -24,15 +24,13 @@ public class HttpRequestVO {
 	private HttpRequestMethod method;
 	private String host;
 	private String path = "/";
-	private int port;
 	
 	/** constructor - instantiates request value object class w/ specified host, method, path defaults to root "/"
 	 * @param method - type of http request to be executed ie. get, post, head
 	 * @param host - host name for request
 	 */
 	/*
-	public HttpRequestBuilder(HttpRequestMethod method, String host, int port) {
-		this.port = port;
+	public HttpRequestBuilder(HttpRequestMethod method, String host) {
 		this.method = method;
 		this.host = host;
 		headers = new LinkedHashMap<>();
@@ -45,8 +43,7 @@ public class HttpRequestVO {
 	 * @param host - host name for request
 	 * @param path - resource path to be requested ie. /about
 	 */
-	public HttpRequestVO(HttpRequestMethod method, String host, String path, int port) {
-		this.port = port;
+	public HttpRequestVO(HttpRequestMethod method, String host, String path) {
 		this.method = method;
 		this.host = host;
 		this.path = path;
@@ -110,21 +107,6 @@ public class HttpRequestVO {
 	}
 	
 	/**
-	 * sets port number to request on
-	 * @param port - int port number
-	 */
-	public void setPort(int port) {
-		this.port = port;
-	}
-	
-	/**
-	 * returns port number (int)
-	 */
-	public int getPort() {
-		return port;
-	}
-	
-	/**
 	 * sets method of request
 	 * @param method - http request method to use ie. get, post, head
 	 */
@@ -158,6 +140,7 @@ public class HttpRequestVO {
 	/**
 	 * Overridden toString method - creates http request string
 	 */
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
@@ -173,13 +156,4 @@ public class HttpRequestVO {
 
 		return sb.toString();
 	}
-	
-	/*
-	public static void main(String[] args) {
-		HttpRequestBuilder request = new HttpRequestBuilder(HttpRequestMethod.get, "www.siliconmtn.com","/about");
-		request.setHeader("Connection", "keep-alive");
-		request.setBody("username and password to log in.");
-		System.out.println(request.toString());
-	}
-	*/
 }

@@ -41,8 +41,8 @@ public class SpiderOriginal {
 	 */
 	public void run() {
 		// Get siliconmtn.com homepage
-		ConnectionManager cm = new ConnectionManager();
-		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, "smt-stage.qa.siliconmtn.com", "/", 443);
+		ConnectionManager cm = new ConnectionManager("smt-stage.qa.siliconmtn.com", 443);
+		HttpRequestVO request = new HttpRequestVO(HttpRequestMethod.get, cm.getHost(), "/");
 		//String homePage = cm.httpsRequest(request);
 		//System.out.println(homePage + "\n");
 		IOManager io = new IOManager("spiderHtml/"); // instantiate IOManager, specify directory relative to SMTJavaTraining
