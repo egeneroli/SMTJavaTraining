@@ -25,7 +25,7 @@ import javax.net.ssl.SSLSocketFactory;
 * @since Jan 11, 2022
 * @updates:
 ****************************************************************************/
-public class ConnectionManager {
+public class ConnectionManager2 {
 	// create enum for http request methods
 	enum HttpRequestMethod{get, post, head};
 	
@@ -36,7 +36,7 @@ public class ConnectionManager {
 	 * @param host - host name for request
 	 * @param port - port number to request on
 	 */
-	public ConnectionManager(String host, int port) {
+	public ConnectionManager2(String host, int port) {
 		this.host = host;
 		this.port = port;
 	}
@@ -99,6 +99,7 @@ public class ConnectionManager {
 	 * @param html - string html w/ http headers
 	 * @return ArrayList of "cookiename=cookievalue" (strings)
 	 */
+	/*
 	public ArrayList<String> extractCookies(String html) {
 		// create ArrayList to store cookies in
 		ArrayList<String> cookieList = new ArrayList<>();
@@ -119,14 +120,14 @@ public class ConnectionManager {
 
 		return cookieList;
 	}
-	
+	*/
 	
 	/**
 	 * parses cookies from http headers
 	 * @param html - string html w/ http headers
 	 * @return hashmap of "cookiename"="cookievalue"
 	 */
-	/*
+	
 	public HashMap<String,String> extractCookies(String html) {
 		// create ArrayList to store cookies in
 		HashMap<String,String> cookieMap = new HashMap<>();
@@ -151,7 +152,7 @@ public class ConnectionManager {
 
 		return cookieMap;
 	}
-	*/
+	
 	
 	
 	/**
